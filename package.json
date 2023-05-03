@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
   },
   "author": "Jérémy PAYET, Julien VICTORINE",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^24.0.0",
+    "electron-reload": "^2.0.0-alpha.1",
+    "mysql2": "^3.2.0",
+    "promise-mysql": "^5.2.0"
+  }
 }
