@@ -60,3 +60,16 @@ footer {
 #logout {
     color: #000000;
 }
+.card-header > h1 {
+    text-align: center;
+}
+#factures,#tickets,#techniciens,#employes {
+    background: #212529;
+    color: white
+}
+#datatablesSimple {
+    text-align: center;
+}
+button.btn.btn-warning {
+    background: #F9B01D;
+}

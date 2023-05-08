@@ -46,8 +46,10 @@
                         </a>
                         <a class="nav-link" href="tickets.html">
                             Tickets
+                        </a><a class="nav-link" href="employes.html">
+                            Employés
                         </a><a class="nav-link" href="techniciens.html">
-                            Techniciens 
+                            Techniciens
                         </a>
                     </div>
                 </div>
@@ -55,17 +57,16 @@
                     <!-- Navbar-->
                     <div id="footer-user">
                         <div>
-                            <img id="user-image" src="C:\Users\Jérémy\Documents\Formation CDA\Projet REP\Projet Electron\src\ui\assets\img\Image placeholder utilisateur générique.jfif" 
-                            >
+                            <img id="user-image" src="assets/img/Image placeholder utilisateur générique.jfif">
                         </div>
                         <div id="footer-user-text" class="small">
                             <a>Utilisateur 1</a>
-                            <a id ="logout" href="#">
+                            <a id="logout" href="#">
                                 <i class="fa fa-power-off"></i>
                                 <span>Se déconnecter</span>
                             </a>
                         </div>
-                    
+
                     </div>
                 </div>
             </nav>
@@ -75,49 +76,172 @@
                 <div class="container-fluid px-4">
                     <div class="row" style="padding-top:5%">
                         <div class="col-xl-6">
-                            <div class="card mb-4">
+                            <div id="factures" class="card mb-4">
                                 <div class="card-header">
-                                    <i class="fas fa-chart-area me-1"></i>
-                                    Pesée en cours
+                                    <h1>Factures à régler</h1>
                                 </div>
-                                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                <div class="card-body">
+                                    <table id="datatablesSimple">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Client</th>
+                                                <th>Technicien</th>
+                                                <th>Date</th>
+                                                <th>Montant</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="data1">
+                                            <th>18</th>
+                                            <th>Gaspard SAVOUREUX</th>
+                                            <th>Gontrand LACHANCE</th>
+                                            <th>19/04/2023</th>
+                                            <th>128,90 €</th>
+                                            <th>
+                                                <button type="button" class="btn btn-warning">Résoudre</button>
+                                            </th>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xl-6">
-                            <div class="card mb-4">
+                            <div id="tickets" class="card mb-4">
                                 <div class="card-header">
-                                    <i class="fas fa-chart-bar me-1"></i>
-                                    Quantité des stocks
+                                    <h1>Tickets en cours</h1>
                                 </div>
-                                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                <div class="card-body">
+                                    <div
+                                        class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                                        <div class="datatable-top">
+                                            <div class="datatable-dropdown">
+                                                <label>
+                                                    <select class="datatable-selector">
+                                                        <option value="5">5</option>
+                                                        <option value="10" selected="">10</option>
+                                                        <option value="15">15</option>
+                                                        <option value="20">20</option>
+                                                        <option value="25">25</option>
+                                                    </select> entries per page
+                                                </label>
+                                            </div>
+                                            <div class="datatable-search">
+                                                <input class="datatable-input" placeholder="Search..." type="search"
+                                                    title="Search within table" aria-controls="datatablesSimple">
+                                            </div>
+                                        </div>
+                                        <div class="datatable-container">
+                                            <table id="datatablesSimple" class="datatable-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th data-sortable="true" style="width: 7.731958762886598%;"><a
+                                                                href="#" class="datatable-sorter">ID</a></th>
+                                                        <th data-sortable="true" style="width: 24.0979381443299%;"><a
+                                                                href="#" class="datatable-sorter">Technicien</a></th>
+                                                        <th data-sortable="true" style="width: 16.3659793814433%;"><a
+                                                                href="#" class="datatable-sorter">N° Facture</a></th>
+                                                        <th data-sortable="true" style="width: 17.783505154639176%;"><a
+                                                                href="#" class="datatable-sorter">19/04/2023</a></th>
+                                                        <th data-sortable="true" style="width: 19.329896907216497%;"><a
+                                                                href="#" class="datatable-sorter">Camionnette</a></th>
+                                                        <th data-sortable="true" style="width: 14.690721649484537%;"><a
+                                                                href="#" class="datatable-sorter">Action</a></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr data-index="0">
+                                                        <td>25</td>
+                                                        <td>Gontrand LACHANCE</td>
+                                                        <td>18</td>
+                                                        <td>Date ticket</td>
+                                                        <td>Type de véhicule</td>
+                                                        <td>
+                                                            <button type="button"
+                                                                class="btn btn-warning">Résoudre</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="datatable-bottom">
+                                            <div class="datatable-info">Showing 1 to 1 of 1 entries</div>
+                                            <nav class="datatable-pagination">
+                                                <ul class="datatable-pagination-list"></ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="ListeAllType">
-
-                    </div>
-                    <div class="card mb-4">
+                    <div id="techniciens" class="card mb-4">
                         <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Liste des produits
+                            <h1>Techniciens disponibles</h1>
                         </div>
                         <div class="card-body">
-                            <table id="datatablesSimple">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Type de pièce</th>
-                                        <th>Nom</th>
-                                        <th>Marque</th>
-                                        <th>Prix</th>
-                                        <th>Description</th>
-                                        <th>Stock</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="data">
-
-                                </tbody>
-                            </table>
+                            <div
+                                class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                                <div class="datatable-top">
+                                    <div class="datatable-dropdown">
+                                        <label>
+                                            <select class="datatable-selector">
+                                                <option value="5">5</option>
+                                                <option value="10" selected="">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                            </select> entries per page
+                                        </label>
+                                    </div>
+                                    <div class="datatable-search">
+                                        <input class="datatable-input" placeholder="Search..." type="search"
+                                            title="Search within table" aria-controls="datatablesSimple">
+                                    </div>
+                                </div>
+                                <div class="datatable-container">
+                                    <table id="datatablesSimple" class="datatable-table">
+                                        <thead>
+                                            <tr>
+                                                <th data-sortable="true" style="width: 6.709677419354838%;"><a href="#"
+                                                        class="datatable-sorter">ID</a></th>
+                                                <th data-sortable="true" style="width: 9.935483870967742%;"><a href="#"
+                                                        class="datatable-sorter">Nom</a></th>
+                                                <th data-sortable="true" style="width: 11.870967741935484%;"><a href="#"
+                                                        class="datatable-sorter">Prénom</a></th>
+                                                <th data-sortable="true" style="width: 19.483870967741936%;"><a href="#"
+                                                        class="datatable-sorter">Adresse mail</a></th>
+                                                <th data-sortable="true" style="width: 17.032258064516128%;"><a href="#"
+                                                        class="datatable-sorter">N° Téléphone</a></th>
+                                                <th data-sortable="true" style="width: 11.612903225806452%;"><a href="#"
+                                                        class="datatable-sorter">Statut</a></th>
+                                                <th data-sortable="true" style="width: 23.35483870967742%;"><a href="#"
+                                                        class="datatable-sorter">Action</a></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-index="0">
+                                                <td>18</td>
+                                                <td>LASSALE</td>
+                                                <td>Jean</td>
+                                                <td>jean.lassalle@rep.re</td>
+                                                <td>0692 14 78 52</td>
+                                                <td>Disponible</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-warning">Contacter</button>
+                                                    <button type="button" class="btn btn-warning">Assigner</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="datatable-bottom">
+                                    <div class="datatable-info">Showing 1 to 1 of 1 entries</div>
+                                    <nav class="datatable-pagination">
+                                        <ul class="datatable-pagination-list"></ul>
+                                    </nav>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -138,13 +262,13 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
+    <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="assets/demo/chart-area-demo.js"></script>
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
+    <script src="../js/datatables-simple-demo.js"></script>
     <script src="../js/liste.js"></script>
 </body>
 
