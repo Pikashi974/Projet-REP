@@ -2517,14 +2517,14 @@ textarea.form-control-lg {
 .input-group > .form-select:focus,
 .input-group > .datatable-selector:focus,
 .input-group > .form-floating:focus-within {
-  z-index: 5;
+  z-index: 1;
 }
 .input-group .btn {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 .input-group .btn:focus {
-  z-index: 5;
+  z-index: 1;
 }
 
 .input-group-text {
@@ -2609,7 +2609,7 @@ textarea.form-control-lg {
 .valid-tooltip {
   position: absolute;
   top: 100%;
-  z-index: 5;
+  z-index: 1;
   display: none;
   max-width: 100%;
   padding: 0.25rem 0.5rem;
@@ -2687,7 +2687,7 @@ textarea.form-control-lg {
 .input-group > .datatable-selector:not(:focus).is-valid,
 .was-validated .input-group > .form-floating:not(:focus-within):valid,
 .input-group > .form-floating:not(:focus-within).is-valid {
-  z-index: 3;
+  z-index: 1;
 }
 
 .invalid-feedback {
@@ -2701,7 +2701,7 @@ textarea.form-control-lg {
 .invalid-tooltip {
   position: absolute;
   top: 100%;
-  z-index: 5;
+  z-index: 1;
   display: none;
   max-width: 100%;
   padding: 0.25rem 0.5rem;
@@ -2779,7 +2779,7 @@ textarea.form-control-lg {
 .input-group > .datatable-selector:not(:focus).is-invalid,
 .was-validated .input-group > .form-floating:not(:focus-within):invalid,
 .input-group > .form-floating:not(:focus-within).is-invalid {
-  z-index: 4;
+  z-index: 1;
 }
 
 .btn {
@@ -6805,7 +6805,7 @@ textarea.form-control-lg {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 1030;
+  z-index: 1;
 }
 
 .fixed-bottom {
@@ -6813,19 +6813,19 @@ textarea.form-control-lg {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1030;
+  z-index: 1;
 }
 
 .sticky-top {
   position: sticky;
   top: 0;
-  z-index: 1020;
+  z-index: 1;
 }
 
 .sticky-bottom {
   position: sticky;
   bottom: 0;
-  z-index: 1020;
+  z-index: 1;
 }
 
 @media (min-width: 576px) {
@@ -10866,7 +10866,6 @@ body {
   flex-basis: 225px;
   flex-shrink: 0;
   transition: transform 0.15s ease-in-out;
-  z-index: 1038;
   transform: translateX(-225px);
 }
 #layoutSidenav #layoutSidenav_content {
@@ -10892,7 +10891,6 @@ body {
   width: 100%;
   height: 100%;
   background: #000;
-  z-index: 1037;
   opacity: 0.5;
   transition: opacity 0.3s ease-in-out;
 }
@@ -10915,17 +10913,14 @@ body {
     display: none;
   }
 }
-.sb-nav-fixed .sb-topnav {
-  z-index: 1039;
-}
+
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
   width: 225px;
   height: 100vh;
-  z-index: 1038;
 }
-.sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
+/* .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
   padding-top: 56px;
-}
+} */
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
   overflow-y: auto;
 }
@@ -10958,8 +10953,7 @@ body {
 
 .sb-topnav {
   padding-left: 0;
-  height: 56px;
-  z-index: 1039;
+  height: 60px;
 }
 .sb-topnav .navbar-brand {
   width: 225px;
@@ -10997,6 +10991,7 @@ body {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   position: relative;
+  justify-content: center;
 }
 .sb-sidenav .sb-sidenav-menu .nav .nav-link .sb-nav-link-icon {
   font-size: 0.9rem;
@@ -11019,14 +11014,14 @@ body {
 }
 
 .sb-sidenav-dark {
-  background-color: #212529;
+  /*background-color: #212529;*/  
   color: rgba(255, 255, 255, 0.5);
 }
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
   color: rgba(255, 255, 255, 0.25);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 1);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
   color: rgba(255, 255, 255, 0.25);
@@ -11043,10 +11038,6 @@ body {
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
   color: #fff;
 }
-.sb-sidenav-dark .sb-sidenav-footer {
-  background-color: #343a40;
-}
-
 .sb-sidenav-light {
   background-color: #f8f9fa;
   color: #212529;
