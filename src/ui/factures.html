@@ -12,6 +12,9 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    <!-- Datepicker JS-->
+    <script src="js/datepicker.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -78,6 +81,43 @@
                     <div class="row" style="padding-top:5%">
                         <div id="factures" class="card mb-4">
                             <div class="card-body">
+
+                                <!-- Modal  ajouter facture-->
+                                <button id="new" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-plus"></i>
+                                    Nouvelle facture
+                                </button>
+                            
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div style="color: black;" class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Ajouter une facture</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="client" class="col-form-label">Client :</label>
+                                                        <select class="form-control" id="controlSelect">
+                                                            <option>Choisir le client</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="montant" class="col-form-label">Montant :</label>
+                                                        <input type="text" class="form-control" id="montant">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                <button type="button" id="ajouter" class="btn btn-primary">Valider</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
