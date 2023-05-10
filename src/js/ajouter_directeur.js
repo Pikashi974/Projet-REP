@@ -1,10 +1,10 @@
 const { remote } = require("electron")
 
-const main = require("../../js/main")
+const main = require("./main")
 
 //Récupérer les données du formulaire
 
-const formulaire = document.querySelector("#create-directeur");
+const formulaire = document.querySelector("#createDirecteur");
 const email = document.querySelector("#typeEmailX");
 const password = document.querySelector("#typePasswordX");
 const telephone = document.querySelector("#typephoneX");
@@ -24,12 +24,13 @@ formulaire.addEventListener("submit", async (e) => {
         //initialiser les valeurs pour la table directeur
         const directeur = {
             email: email.value,
-            password: password.value,
+            pass: password.value,
             telephone: telephone.value,
             nom: nom.value,
             prenom: prenom.value,
         };
         //Demande de promesse vers main
+        console.log(directeur);
         const ajoutFormulaire = await main.ajout_directeur(directeur).then(showNotification);
         console.log(ajoutFormulaire);
         document.location.href = "dashboard.html";
