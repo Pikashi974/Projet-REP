@@ -4,7 +4,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: `electron_ifr`,
+    database: `electron_rep`,
     port: 5697
 })
 
