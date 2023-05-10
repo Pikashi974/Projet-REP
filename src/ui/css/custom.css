@@ -1,75 +1,140 @@
-.sb-sidenav-menu, .sb-nav-fixed .sb-topnav, .sb-sidenav-footer, a.navbar-brand.ps-3 {
-    background-color: #F9B01D;    
+.sb-sidenav-menu,
+.sb-nav-fixed .sb-topnav,
+.sb-sidenav-footer,
+a.navbar-brand.ps-3,
+#login {
+    background-color: #F9B01D;
 }
 
 .ps-3 {
     padding: 10% !important;
-  }
-
-  button#sidebarToggle {
-    display: none;
 }
-#layoutSidenav_content{
+
+button#sidebarToggle, #logout {
+    color:#000000;
+}
+
+#layoutSidenav_content {
     /*background:url(https://rep.uplink.re/assets/frontend/images/background-motif.png) #000 50% repeat!important */
-  background-image: url(https://rep.uplink.re/assets/frontend/images/background-motif.png) !important;
-  background-position-x: 50% !important;
-  background-position-y: center !important;
-  background-size: 2%!important;    
-  background-attachment: initial !important;
-  background-origin: initial !important;
-  background-clip: initial !important;
-  background-color: rgb(0, 0, 0) !important;
+    background-image: url(https://rep.uplink.re/assets/frontend/images/background-motif.png) !important;
+    background-position-x: 50% !important;
+    background-position-y: center !important;
+    background-size: 2% !important;
+    background-attachment: initial !important;
+    background-origin: initial !important;
+    background-clip: initial !important;
+    background-color: rgb(0, 0, 0) !important;
 
 }
 
-.sb-nav-fixed .sb-topnav {
-    left:225px;
+@media (min-width: 576px) {
+    .sb-nav-fixed .sb-topnav {
+        left: 0px;
+    }
 }
+
+@media (min-width: 576px) {
+    #mail {
+        top: 37%;
+    }
+}
+
+@media (min-width: 576px) {
+    #lock {
+        top: 49%;
+    }
+}
+
+/* @media (min-width: 576px) {
+    button#sidebarToggle {
+        display: block;
+        color:#000000;
+    }
+} */
+
 .navbar.navbar-inverse .navbar-header .navbar-brand {
     display: block;
-    text-align:center;
+    text-align: center;
     float: none;
 }
+
 a.nav-link {
     border-width: 0px 0px 1px 0px;
     border-style: dashed;
     border-color: #000000;
 }
+
 .nav {
     border-width: 1px 0px 0px 0px;
     border-style: dashed;
     border-color: #000000;
 }
+
 footer {
     display: none;
 }
+
 #footer-user {
     display: grid;
     grid-template-columns: max-content max-content;
     color: black;
 }
-#user-image { 
-    max-width:60px;
+
+#user-image {
+    max-width: 60px;
     /*width: 50%;*/
     border-radius: 50%;
 }
-#footer-user-text{
+
+#footer-user-text {
     display: grid;
     align-items: center;
 }
-#logout {
-    color: #000000;
-}
-.card-header > h1 {
+
+.card-header>h1 {
     text-align: center;
 }
-#factures,#tickets,#techniciens,#employes {
+
+#factures,
+#tickets,
+#techniciens,
+#employes {
     background: #212529;
     color: white
 }
+
 #datatablesSimple {
     text-align: center;
 }
+
 button.btn.btn-warning {
     background: #F9B01D;
+}
+
+.mailform,
+.passform {
+    padding-left: 10%;
+    position: relative;
+}
+
+#mail,
+#lock {
+    position: absolute;
+    left: 12%;
+    /* background: url("../assets/img/envelope-solid.svg") no-repeat left;
+}
+
+.passform {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    background: url("../assets/img/lock-solid.svg") no-repeat left; */
+}
+
+#mail {
+    top: 44.5%;
+}
+
+#lock {
+    top: 54%;
 }

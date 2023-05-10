@@ -22,11 +22,20 @@
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                     <div class="card text-black" style="border-radius: 1rem;" id="login">
+                                <a href="index.html">Retour</a>
                         <div class="card-body p-5 text-center">
                             <div class="mb-md-5 mt-md-4 pb-5">
                                 <img src="https://rep.uplink.re/assets/frontend/images/logo.png" style="width: 25%;">
                                 <h2 class="fw-bold mb-2 text-uppercase" style="padding: 1em;">Je m'identifie</h2>
-                                <form id="identifie" action="dashboard.html">
+                                <form id="create-directeur">
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="nom" id="typeNomX" class="form-control form-control-lg mailform" placeholder="Nom" />
+                                    </div>
+    
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="prenom" id="typePrenomX" class="form-control form-control-lg passform" placeholder="Prenom">
+                                        </input>
+                                    </div>
                                     <div class="form-outline form-white mb-4">
                                         <input type="email" id="typeEmailX" class="form-control form-control-lg mailform" placeholder="Adresse e-mail" />
                                     </div>
@@ -35,15 +44,11 @@
                                         <input type="password" id="typePasswordX" class="form-control form-control-lg passform" placeholder="Mot de passe">
                                         </input>
                                     </div>
-    
-                                    <p class="small mb-5 pb-lg-2"><a class="text-black-50" href="#!">Mot de passe
-                                            oublié?</a>
-                                    </p>
-    
-                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Je me connecte</button>
-                                </form>
-                                <form action="create.html">
-                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Créer directeur</button>
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="phone" id="typephoneX" class="form-control form-control-lg passform" placeholder="Téléphone">
+                                        </input>
+                                    </div>
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Créer</button>
                                 </form>
                             </div>
                         </div>

@@ -17,7 +17,7 @@ async function init() {
     getData();
 }
 
-init();
+// init();
 
 function renderList(data, html) {
     html.innerHTML = "";

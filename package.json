@@ -10,6 +10,7 @@
   "author": "Jérémy PAYET, Julien VICTORINE",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "electron": "^24.0.0",
     "electron-reload": "^2.0.0-alpha.1",
     "mysql2": "^3.2.0",

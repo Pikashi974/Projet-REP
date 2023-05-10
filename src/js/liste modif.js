@@ -22,7 +22,7 @@ async function init() {
     getData();
 }
 
-init();
+// init();
 
 function renderList(data, html) {
     html.innerHTML = "";
@@ -44,14 +44,14 @@ function renderList(data, html) {
 }
 const Modifie = async (id) => {
 
-    const stockage = await main.getbyId(id);
-    console.log(stockage);
-    type.value = stockage.type_piece;
-    nom.value = stockage.nom;
-    marque.value = stockage.marque;
-    prix.value = stockage.prix;
-    stock.value = stockage.stock;
-    desc.value = stockage.desc;
+    const directeur = await main.getbyId(id);
+    console.log(directeur);
+    type.value = directeur.type_piece;
+    nom.value = directeur.nom;
+    marque.value = directeur.marque;
+    prix.value = directeur.prix;
+    stock.value = directeur.stock;
+    desc.value = directeur.desc;
 
     ModificationId = id;
 };
@@ -60,8 +60,8 @@ AjoutForm.addEventListener("submit", async (e) => {
     try {
         e.preventDefault();
 
-        //initialiser les valeurs INPUT VS champ table stockage
-        const stockage = {
+        //initialiser les valeurs INPUT VS champ table directeur
+        const directeur = {
             type_piece: type.value,
             nom: nom.value,
             marque: marque.value,
@@ -71,7 +71,7 @@ AjoutForm.addEventListener("submit", async (e) => {
 
         };
         //demande de promese vers le main
-        const Modifier = await main.modifier(ModificationId, stockage);
+        const Modifier = await main.modifier(ModificationId, directeur);
         console.log(Modifier);
         document.location.href = "modifier.html";
 
