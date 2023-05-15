@@ -28,7 +28,7 @@
         <div id="Title-padding-left"></div>
         <div id="Title">
             <h1>
-                <p>Employés</p>
+                <p>Clients</p>
             </h1>
         </div>
         <div id="Title-padding-right"></div>
@@ -84,42 +84,42 @@
             <main>
                 <div class="container-fluid px-4">
                     <div class="row" style="padding-top:5%">
-                        <div id="employes" class="card mb-4">
+                        <div id="clients" class="card mb-4">
                             <div class="card-body">
 
                                 <!-- Modal  ajouter employé-->
                                 <button id="new" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-plus"></i>
-                                    Ajouter un employé
+                                    Ajouter un client
                                 </button>
                             
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div style="color: black;" class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Ajouter un employé</h5>
+                                                <h5 class="modal-title" id="staticBackdropLabel">Ajouter un client</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form id="AjoutForm">
                                                     <div class="form-group">
-                                                        <label for="nomEmploye" class="col-form-label">Nom :</label>
-                                                        <input type="text" class="form-control" id="nomEmploye">
+                                                        <label for="nomClient" class="col-form-label">Nom :</label>
+                                                        <input type="text" class="form-control" id="nomClient">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="prenomEmploye" class="col-form-label">Prénom :</label>
-                                                        <input type="text" class="form-control" id="prenomEmploye">
+                                                        <label for="prenomClient" class="col-form-label">Prénom :</label>
+                                                        <input type="text" class="form-control" id="prenomClient">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="emailEmploye" class="col-form-label">Adresse e-mail :</label>
-                                                        <input type="mail" class="form-control" id="emailEmploye">
+                                                        <label for="emailClient" class="col-form-label">Adresse e-mail :</label>
+                                                        <input type="mail" class="form-control" id="emailClient">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="telephoneEmploye" class="col-form-label">Téléphone :</label>
-                                                        <input type="text" class="form-control" id="telephoneEmploye">
+                                                        <label for="telephoneClient" class="col-form-label">Téléphone :</label>
+                                                        <input type="text" class="form-control" id="telephoneClient">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="TypestatutEmp" class="col-form-label">Statut :</label>
-                                                        <select class="form-control" id="TypestatutEmp">
+                                                        <label for="TypestatutClient" class="col-form-label">Statut :</label>
+                                                        <select class="form-control" id="TypestatutClient">
                                                             <option value="N.C">Choisir le statut du technicien</option>
                                                             <option value="Disponible">Disponible</option>
                                                             <option value="Occupe">Occupé</option>
@@ -167,7 +167,7 @@
                                             <th><a href="#" class="datatable-sorter">Action</a></th>
                                         </tr>
                                     </thead>
-                                    <tbody id="listeEmploye">
+                                    <tbody id="listeClient">
                                         <!-- <tr data-index="0">
                                             <td>20</td>
                                             <td>DUPIN</td>
@@ -213,8 +213,8 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="../js/datatables-simple-demo.js"></script>
-    <script src="../js/employe/ajouter_employe.js"></script> <!-- controller, relation -->
-    <script src="../js/employe/liste_employe.js"></script>
+    <script src="../js/client/ajouter_client.js"></script> <!-- controller, relation -->
+    <script src="../js/client/liste_client.js"></script>  <!-- controller, relation -->
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

@@ -2,7 +2,7 @@ const { remote } = require ("electron");
 const main = require("../js/main");
 
 // Récupération des valeurs du formulaire
-const List = document.querySelector("#listemodEmploye");
+const List = document.querySelector("#listemodClient");
 
 let ModificationId;
 
@@ -39,30 +39,30 @@ function renderlist (tasks, html) {
                     <div style="color: black;" class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Modifier l'employe</h5>
+                                <h5 class="modal-title" id="staticBackdropLabel">Modifier le client</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form id="AjoutForm">
                                     <div class="form-group">
-                                        <label for="nomEmploye" class="col-form-label">Nom :</label>
-                                        <input type="text" class="form-control" id="nomEmploye">
+                                        <label for="nomClient" class="col-form-label">Nom :</label>
+                                        <input type="text" class="form-control" id="nomClient">
                                     </div>
                                     <div class="form-group">
-                                        <label for="prenomEmploye" class="col-form-label">Prénom :</label>
-                                        <input type="text" class="form-control" id="prenomEmploye">
+                                        <label for="prenomClient" class="col-form-label">Prénom :</label>
+                                        <input type="text" class="form-control" id="prenomClient">
                                     </div>
                                     <div class="form-group">
-                                        <label for="emailEmploye" class="col-form-label">Adresse e-mail :</label>
-                                        <input type="mail" class="form-control" id="emailEmploye">
+                                        <label for="emailClient" class="col-form-label">Adresse e-mail :</label>
+                                        <input type="mail" class="form-control" id="emailClient">
                                     </div>
                                     <div class="form-group">
-                                        <label for="telephoneEmploye" class="col-form-label">Téléphone :</label>
-                                        <input type="text" class="form-control" id="telephoneEmploye">
+                                        <label for="telephoneClient" class="col-form-label">Téléphone :</label>
+                                        <input type="text" class="form-control" id="telephoneClient">
                                     </div>
                                     <div class="form-group">
-                                        <label for="TypestatutEmp" class="col-form-label">Statut :</label>
-                                        <select class="form-control" id="TypestatutEmp">
+                                        <label for="TypestatutClient" class="col-form-label">Statut :</label>
+                                        <select class="form-control" id="TypestatutClient">
                                             <option value="N.C">Choisir le statut du technicien</option>
                                             <option value="Disponible">Disponible</option>
                                             <option value="Occupe">Occupé</option>
@@ -72,7 +72,7 @@ function renderlist (tasks, html) {
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                <button type="submit" id="ajouter" class="btn btn-primary" name="valider">Valider</button>
+                                <button type="submit" id="ajouter" class="btn btn-primary">Valider</button>
                             </div>
                         </div>
                     </div>
@@ -89,15 +89,15 @@ function renderlist (tasks, html) {
 
 // récupération des infos de la BDD par rapport à l'ID
 const Modification = async (id)=> {
-    const employe = await main.Editer(id); 
+    const client = await main.EditerClient(id); 
 
     // ce que je récupère dans la BDD doit être égal à tel champ
     // initialiser les valeurs de la table employe vers l'INPUT, cohérant dans chaque input
-    nomEmploye.value = employe.nom;
-    prenomEmploye.value = employe.prenom;
-    emailEmploye.value = employe.email;
-    telephoneEmploye.value = employe.telephone;
-    TypestatutEmp.value = employe.statut;
+    nomClient.value = client.nom;
+    prenomClient.value = client.prenom;
+    emailClient.value = client.email;
+    telephoneClient.value = client.telephone;
+    TypestatutClient.value = client.statut;
 
     ModificationId = id;
     // dès qu'il clique sur le bouton "Modifier", il va faire une MAJ dans la BDD
@@ -107,20 +107,20 @@ AjoutForm.addEventListener("submit", async (e) => {
     try {
         e.preventDefault();
 
-        // initialiser les valeurs INPUT VS champ table "employe"
-        const employe = {
-            nom: nomEmploye.value,
-            prenom: prenomEmploye.value,
-            email: emailEmploye.value,
-            telephone: telephoneEmploye.value,
-            statut: TypestatutEmp.value,
+        // initialiser les valeurs INPUT VS champ table "client"
+        const client = {
+            nom: nomClient.value,
+            prenom: prenomClient.value,
+            email: emailClient.value,
+            telephone: telephoneClient.value,
+            statut: TypestatutClient.value,
         };
 
         // demande de promesse vers le main
-        const Modifier= await main.Modifier(ModificationId, employe);
+        const Modifier= await main.ModifierClient(ModificationId, client);
         console.log(Modifier);
 
-        document.location.href="modifier_employe.html";
+        document.location.href="modifier_client.html";
         
     } catch (error) {
         console.log(error);

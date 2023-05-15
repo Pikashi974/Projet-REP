@@ -84,6 +84,32 @@ const ModifierTechnicien = async (id,technicien) => {
 }
 
 
+// client
+const ajoutClient = async (client) => {
+    // faire appel à la constance de getConnection 
+    const connect = await getConnection();
+    const resultat = await conn.query("INSERT INTO client SET ?", client);
+}
+
+const SupprimeClient = async (id, database) => {
+    const connect = await getConnection();
+    const result = await connect.query("DELETE FROM client WHERE id=?", [database, id]);
+    return (result);
+}
+
+const EditerClient = async (id) => {
+    const connect = await getConnection();
+    const resultat = await conn.query("SELECT * FROM client WHERE id = ?", id); 
+    return resultat[0];
+}
+
+const ModifierClient = async (id,client) => {
+    const connect = await getConnection();
+    const resultat = await conn.query("UPDATE client SET ? WHERE id = ?",  [client,id,]);
+    return resultat;
+}
+
+
 
 // const allType = async (database) => {
 //     const connect = await getConnection();
@@ -132,6 +158,10 @@ module.exports = {
     ajoutTechnicien,
     SupprimerTechnicien,
     EditerTechnicien,
-    ModifierTechnicien
+    ModifierTechnicien,
 
+    ajoutClient,
+    SupprimeClient,
+    EditerClient,
+    ModifierClient
 }
