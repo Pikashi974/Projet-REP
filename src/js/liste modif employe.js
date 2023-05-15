@@ -3,6 +3,7 @@ const { remote } = require("electron")
 const main = require("../js/main")
 
 const List = document.querySelector("#data");
+
 const formulaire = document.querySelector("#AjoutForm");
 const type = document.querySelector("#typepiece");
 const nom = document.querySelector("#nom")
@@ -37,7 +38,7 @@ function renderList(data, html) {
             <td>${element.description}</td>
             <td>${element.stock}</td>
             <td>
-                <button class="btn btn-secondary btn-sm" onclick="Modifie(${element.id})">Modifier</button>
+                <button class="btn btn-secondary btn-sm" onclick="Modifier(${element.id})">Modifier</button>
             </td>
         </tr>`
     });

@@ -84,7 +84,7 @@
 
                                 <!-- Modal  ajouter facture-->
                                 <button id="new" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-plus"></i>
-                                    Nouvelle facture
+                                    Ajouter une facture
                                 </button>
                             
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -98,14 +98,14 @@
                                                 <form>
                                                     <div class="form-group">
                                                         <label for="client" class="col-form-label">Client :</label>
-                                                        <select class="form-control" id="controlSelect">
-                                                            <option>Choisir le client</option>
+                                                        <select class="form-control" id="client">
+                                                            <option value="N.C">Choisir le client</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label for="montant" class="col-form-label">Montant :</label>
-                                                        <input type="text" class="form-control" id="montant">
+                                                        <input type="text" class="form-control" placeholder="" id="montant">
                                                     </div>
                                                 </form>
                                             </div>

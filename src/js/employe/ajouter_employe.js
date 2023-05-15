@@ -5,13 +5,13 @@ const main = require("../js/main")
 //Récupérer les données du formulaire
 
 const formulaire = document.querySelector("#AjoutForm");
-const nom = document.querySelector("");
-const prenom = document.querySelector("");
+const Ajouternom = document.querySelector("#nomEmploye");
+const Ajouterprenom = document.querySelector("#prenomEmploye");
 const password = document.querySelector("");
-const email = document.querySelector("");
+const Ajouteremail = document.querySelector("#emailEmploye");
 const technicien = document.querySelector("");
-const telephone = document.querySelector("");
-const statut = document.querySelector("");
+const Ajoutertelephone = document.querySelector("#telephoneEmploye");
+const Ajouterstatut = document.querySelector("#TypestatutEmp");
 
 const NOTIFICATION_TITLE = 'SQL Notification'
 const NOTIFICATION_BODY = 'La notification a réussi'
@@ -23,19 +23,23 @@ function showNotification() {
 formulaire.addEventListener("submit", async (e) => {
     try {
         e.preventDefault();
+        // concordance
         //initialiser les valeurs pour la table employe
         const employe = {
-            nom: nom.value,
-            prenom: prenom.value,
+            nom: Ajouternom.value,
+            prenom: Ajouterprenom.value,
             password: password.value,
-            email: email.value,
+            email: Ajouteremail.value,
             technicien: technicien.value,
-            telephone: telephone.value,
-            statut: statut.value,
+            telephone: Ajoutertelephone.value,
+            statut: Ajouterstatut.value,
         };
+        // le controller va demander au model de récupérer les données et les stocker dans la BDD
         //Demande de promesse vers main
-        const ajoutFormulaire = await main.ajout(employe).then(showNotification);
+        const ajoutFormulaire = await main.ajout_employe(employe).then(showNotification);
         console.log(ajoutFormulaire);
+        alert("Super !");
+
         document.location.href = "index.html";
     }
     catch (error) {

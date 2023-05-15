@@ -1,5 +1,5 @@
 const { BrowserWindow, Notification, shell } = require("electron");
-const { getConnection } = require("./database")
+const { getConnection } = require("./database"); // connexion BDD
 //const bcryptjs = require('bcryptjs');
 
 let window;
@@ -9,14 +9,15 @@ const ajout_directeur = async (values) => {
     const result = await connect.query("INSERT INTO directeur SET ?", values);
 }
 
+const getIdentification = async (mail, password) => {
+    const connect = await getConnection();
+    const result = await connect.query("SELECT * FROM ? WHERE mail=?", mail);
+    return result;
+}
+
 const liste = async (database) => {
     const connect = await getConnection();
     const result = await connect.query("SELECT * FROM ? ORDER BY id DESC", database);
-    return (result);
-}
-const allType = async (database) => {
-    const connect = await getConnection();
-    const result = await connect.query("SELECT type_piece FROM ?", database);
     return (result);
 }
 
@@ -26,33 +27,80 @@ const getbyId = async (id, database) => {
     return (result[0]);
 }
 
-const singleType = async (type, database) => {
-    const connect = await getConnection();
-    const result = await connect.query("SELECT * FROM ? WHERE type_piece=?", [database, type]);
-    return (result);
-}
-
 const modifier = async (id, values, database) => {
     const connect = await getConnection();
     const result = await connect.query("UPDATE ? SET ? WHERE id=?", [database, values, id,]);
     return (result);
 }
 
-const supprimer = async (id, database) => {
+
+// Employé
+const ajout_employe = async (employe) => {
     const connect = await getConnection();
-    const result = await connect.query("DELETE FROM ? WHERE id=?", [database, id]);
+    const result = await connect.query("INSERT INTO employe SET ?", employe);
+}
+
+const Supprime = async (id, database) => {
+    const connect = await getConnection();
+    const result = await connect.query("DELETE FROM employe WHERE id=?", [database, id]);
     return (result);
 }
 
-const mailto = async (text) => {
-    shell.openExternal("mailto:" + text)
+const Editer = async (id) => {
+    const connect = await getConnection();
+    const resultat = await conn.query("SELECT * FROM employe WHERE id = ?", id); 
+    return resultat[0];
 }
 
-const getIdentification = async (mail, password) => {
+const Modifier = async (id,employe) => {
     const connect = await getConnection();
-    const result = await connect.query("SELECT * FROM ? WHERE mail=?", mail);
-    return result;
+    const resultat = await conn.query("UPDATE employe SET ? WHERE id = ?",  [employe,id,]);
+    return resultat;
 }
+
+// technicien
+const ajoutTechnicien = async (technicien) => {
+    // faire appel à la constance de getConnection 
+    const connect = await getConnection();
+    const resultat = await conn.query("INSERT INTO technicien SET ?", technicien);
+}
+
+const SupprimerTechnicien = async (id, database) => {
+    const connect = await getConnection();
+    const result = await connect.query("DELETE FROM technicien WHERE id=?", [database, id]);
+    return (result);
+}
+
+const EditerTechnicien = async (id) => {
+    const connect = await getConnection();
+    const resultat = await conn.query("SELECT * FROM technicien WHERE id = ?", id); 
+    return resultat[0];
+}
+
+const ModifierTechnicien = async (id,technicien) => {
+    const connect = await getConnection();
+    const resultat = await conn.query("UPDATE technicien SET ? WHERE id = ?",  [technicien,id,]);
+    return resultat;
+}
+
+
+
+// const allType = async (database) => {
+//     const connect = await getConnection();
+//     const result = await connect.query("SELECT type_piece FROM ?", database);
+//     return (result);
+// }
+
+// const singleType = async (type, database) => {
+//     const connect = await getConnection();
+//     const result = await connect.query("SELECT * FROM ? WHERE type_piece=?", [database, type]);
+//     return (result);
+// }
+
+// const mailto = async (text) => {
+//     shell.openExternal("mailto:" + text)
+// }
+
 
 function NewWindow() {
     window = new BrowserWindow({
@@ -69,10 +117,21 @@ module.exports = {
     NewWindow,
     ajout_directeur,
     liste,
-    allType,
-    singleType,
-    supprimer,
+    // allType,
+    // singleType,
+    // supprimer,
     getbyId,
     modifier,
-    getIdentification
+    getIdentification,
+
+    ajout_employe,
+    Supprime,
+    Editer,
+    Modifier,
+
+    ajoutTechnicien,
+    SupprimerTechnicien,
+    EditerTechnicien,
+    ModifierTechnicien
+
 }
