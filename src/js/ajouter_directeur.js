@@ -11,12 +11,8 @@ const telephone = document.querySelector("#typephoneX");
 const nom = document.querySelector("#typeNomX");
 const prenom = document.querySelector("#typePrenomX");
 
-const NOTIFICATION_TITLE = 'SQL Notification'
-const NOTIFICATION_BODY = 'La notification a réussi'
 
-function showNotification() {
-    new Notification({ title: NOTIFICATION_TITLE, body: NOTIFICATION_BODY }).show()
-}
+
 
 formulaire.addEventListener("submit", async (e) => {
     try {
@@ -31,7 +27,7 @@ formulaire.addEventListener("submit", async (e) => {
         };
         //Demande de promesse vers main
         console.log(directeur);
-        const ajoutFormulaire = await main.ajout_directeur(directeur).then(showNotification);
+        const ajoutFormulaire = await main.ajout_valeur("directeur",directeur);
         console.log(ajoutFormulaire);
         document.location.href = "dashboard.html";
     }

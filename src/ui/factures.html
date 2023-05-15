@@ -12,9 +12,6 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/custom.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-
-    <!-- Datepicker JS-->
-    <script src="js/datepicker.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -83,63 +80,89 @@
                             <div class="card-body">
 
                                 <!-- Modal  ajouter facture-->
-                                <button id="new" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-plus"></i>
-                                    Nouvelle facture
-                                </button>
-                            
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+                                <div style=" display: grid; grid-template-columns: auto auto; align-items: center;">
+                                    <button id="new" type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop"><i class="fa fa-plus"></i>
+                                        Nouvelle facture
+                                    </button>
+                                    <input onkeyup="main.searchList()" class="datatable-input" placeholder="Search..."
+                                        type="search" title="Search within table" id="search">
+                                </div>
+
+
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" role="dialog"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
                                     <div style="color: black;" class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Ajouter une facture</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h5 class="modal-title" id="staticBackdropLabel">Ajouter une facture
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form>
+                                                <form id="formFacture">
                                                     <div class="form-group">
                                                         <label for="client" class="col-form-label">Client :</label>
-                                                        <select class="form-control" id="controlSelect">
-                                                            <option>Choisir le client</option>
+                                                        <select class="form-control" id="client">
+                                                            <option value="new">Nouveau client</option>
+                                                            <option value="known">Client connu</option>
                                                         </select>
                                                     </div>
+                                                    <div id="client_new" style="display: block;">
+                                                        <div class="form-group">
+                                                            <label for="nom" class="col-form-label">Nom :</label>
+                                                            <input type="text" class="form-control" id="nom">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="prenom" class="col-form-label">Prénom :</label>
+                                                            <input type="text" class="form-control" id="prenom">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="email" class="col-form-label">Adresse e-mail
+                                                                :</label>
+                                                            <input type="mail" class="form-control" id="email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="telephone" class="col-form-label">Téléphone
+                                                                :</label>
+                                                            <input type="text" class="form-control" id="telephone">
+                                                        </div>
+                                                    </div>
+                                                    <div id="client_known" style="display: none;">
+                                                        <div class="form-group">
+                                                            <label for="list_client" class="col-form-label">Liste des clients :</label>
+                                                            <select class="form-control" id="list_client">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="technicien" class="col-form-label">Technicien :</label>
+                                                        <select class="form-control" id="technicien">
 
+                                                        </select>
+                                                    </div>
                                                     <div class="form-group">
                                                         <label for="montant" class="col-form-label">Montant :</label>
                                                         <input type="text" class="form-control" id="montant">
                                                     </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Fermer</button>
+                                                        <button type="submit" id="ajouter"
+                                                            class="btn btn-primary">Valider</button>
+                                                    </div>
                                                 </form>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                                <button type="button" id="ajouter" class="btn btn-primary">Valider</button>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <div class="datatable-container" id="tableau_facture">
 
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Client</th>
-                                            <th>Technicien</th>
-                                            <th>Date</th>
-                                            <th>Montant</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="data1">
-                                        <th>18</th>
-                                        <th>Gaspard SAVOUREUX</th>
-                                        <th>Gontrand LACHANCE</th>
-                                        <th>19/04/2023</th>
-                                        <th>128,90 €</th>
-                                        <th>
-                                            <button type="button" class="btn btn-warning">Résoudre</button>
-                                        </th>
-                                    </tbody>
-                                </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -168,7 +191,7 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="../js/datatables-simple-demo.js"></script>
-    <script src="../js/liste.js"></script>
+    <script src="../js/factures.js"></script>
 </body>
 
 </html>

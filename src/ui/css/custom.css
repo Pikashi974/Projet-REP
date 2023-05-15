@@ -10,8 +10,9 @@ a.navbar-brand.ps-3,
     padding: 10% !important;
 }
 
-button#sidebarToggle, #logout {
-    color:#000000;
+button#sidebarToggle,
+#logout {
+    color: #000000;
 }
 
 #layoutSidenav_content {
@@ -103,7 +104,7 @@ footer {
     color: white
 }
 
-#datatablesSimple {
+#datatablesSimple, #database_ticket, #database_facture, #database_technicien {
     text-align: center;
 }
 
@@ -134,26 +135,43 @@ button.btn.btn-warning {
 #mail {
     top: 44.5%;
 }
-.sb-sidenav-menu, .sb-nav-fixed .sb-topnav, .sb-sidenav-footer, a.navbar-brand.ps-3, #new, #ajouter {
-    background-color: #F9B01D;    
+
+.sb-sidenav-menu,
+.sb-nav-fixed .sb-topnav,
+.sb-sidenav-footer,
+a.navbar-brand.ps-3,
+#new,
+#ajouter {
+    background-color: #F9B01D;
 }
 
 .ps-3 {
     padding: 10% !important;
-  }
+}
 
-  button#sidebarToggle {
+button#sidebarToggle {
     display: none;
 }
-#layoutSidenav_content{
-    /*background:url(https://rep.uplink.re/assets/frontend/images/background-motif.png) #000 50% repeat!important */
-  background-image: url(https://rep.uplink.re/assets/frontend/images/background-motif.png) !important;
-  background-position-x: 50% !important;
-  background-position-y: center !important;
-  background-size: 2%!important;    
-  background-attachment: initial !important;
-  background-origin: initial !important;
-  background-clip: initial !important;
-  background-color: rgb(0, 0, 0) !important;
 
+#layoutSidenav_content {
+    /*background:url(https://rep.uplink.re/assets/frontend/images/background-motif.png) #000 50% repeat!important */
+    background-image: url(https://rep.uplink.re/assets/frontend/images/background-motif.png) !important;
+    background-position-x: 50% !important;
+    background-position-y: center !important;
+    background-size: 2% !important;
+    background-attachment: initial !important;
+    background-origin: initial !important;
+    background-clip: initial !important;
+    background-color: rgb(0, 0, 0) !important;
+
+}
+
+#new {
+    margin: 2%;
+    width: fit-content;
+}
+#search,#search_facture,#search_ticket, #search_technicien {
+    width: fit-content;
+    height: fit-content;
+    justify-self: end;
 }

@@ -78,98 +78,94 @@
                         <div id="techniciens" class="card mb-4">
                             <div class="card-body">
 
-                                    <!-- Modal  ajouter employé-->
-                                    <button id="new" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa fa-plus"></i>
+                                <!-- Modal  ajouter employé-->
+                                <div style=" display: grid; grid-template-columns: auto auto; align-items: center;">
+                                    <button id="new" type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop"><i class="fa fa-plus"></i>
                                         Nouveau technicien
                                     </button>
-                                
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div style="color: black;" class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel">Ajouter un technicien</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form>
-                                                        <div class="form-group">
-                                                            <label for="nom" class="col-form-label">Nom :</label>
-                                                            <input type="text" class="form-control" id="nom">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="prenom" class="col-form-label">Prénom :</label>
-                                                            <input type="text" class="form-control" id="prenom">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="email" class="col-form-label">Adresse e-mail :</label>
-                                                            <input type="mail" class="form-control" id="email">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="telephone" class="col-form-label">Téléphone :</label>
-                                                            <input type="text" class="form-control" id="telephone">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="statut" class="col-form-label">Statut :</label>
-                                                            <select class="form-control" id="controlSelect">
-                                                                <option>Disponible</option>
-                                                                <option>Occupé</option>
-                                                            </select>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                                    <button type="button" id="ajouter" class="btn btn-primary">Valider</button>
-                                                </div>
+                                    <input onkeyup="main.searchList()" class="datatable-input" placeholder="Search..."
+                                        type="search" title="Search within table" id="search">
+                                </div>
+
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" role="dialog"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div style="color: black;" class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Ajouter un technicien
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="formTechnicien">
+                                                    <div class="form-group">
+                                                        <label for="nom" class="col-form-label">Nom :</label>
+                                                        <input type="text" class="form-control" id="nom">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="prenom" class="col-form-label">Prénom :</label>
+                                                        <input type="text" class="form-control" id="prenom">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="password" class="col-form-label">Mot de passe
+                                                            :</label>
+                                                        <input type="password" class="form-control" id="password">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email" class="col-form-label">Adresse e-mail
+                                                            :</label>
+                                                        <input type="mail" class="form-control" id="email">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="telephone" class="col-form-label">Téléphone
+                                                            :</label>
+                                                        <input type="tel" class="form-control" id="telephone">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="statut" class="col-form-label">Statut :</label>
+                                                        <select class="form-control" id="controlSelect">
+                                                            <option>Disponible</option>
+                                                            <option>Occupé</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Fermer</button>
+                                                        <button id="ajouter" class="btn btn-primary"
+                                                            type="submit">Valider</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
-                                
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th><a href="#" class="datatable-sorter">ID</a></th>
-                                            <th><a href="#" class="datatable-sorter">Nom</a></th>
-                                            <th><a href="#" class="datatable-sorter">Prénom</a></th>
-                                            <th><a href="#" class="datatable-sorter">Adresse mail</a></th>
-                                            <th><a href="#" class="datatable-sorter">N° Téléphone</a></th>
-                                            <th><a href="#" class="datatable-sorter">Statut</a></th>
-                                            <th><a href="#" class="datatable-sorter">Action</a></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr data-index="0">
-                                            <td>18</td>
-                                            <td>LASSALE</td>
-                                            <td>Jean</td>
-                                            <td>jean.lassalle@rep.re</td>
-                                            <td>0692 14 78 52</td>
-                                            <td>Disponible</td>
-                                            <td>
-                                                <button type="button" class="btn btn-warning">Contacter</button>
-                                                <button type="button" class="btn btn-warning">Assigner</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                </div>
+                                <!-- Paste  tab here-->
+                                <div class="datatable-container" id="tableau_technicien">
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
+    </div>
+    </main>
+    <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    &middot;
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
@@ -180,7 +176,7 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="../js/datatables-simple-demo.js"></script>
-    <script src="../js/liste.js"></script>
+    <script src="../js/techniciens.js"></script>
 </body>
 
 </html>

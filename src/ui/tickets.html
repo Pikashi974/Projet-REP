@@ -92,60 +92,39 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form>
+                                                <form id="formTicket">
                                                     <div class="form-group">
                                                         <label for="technicien" class="col-form-label">Technicien :</label>
-                                                        <select class="form-control" id="controlSelect">
+                                                        <select class="form-control" id="technicien">
                                                             <option>Choisir un technicien</option>
                                                         </select>
                                                     </div>
-
+                                                    <div class="form-group">
+                                                        <label for="type" class="col-form-label">Facture :</label>
+                                                        <select class="form-control" id="facture">
+                                                            
+                                                        </select>
+                                                    </div>
                                                     <div class="form-group">
                                                         <label for="type" class="col-form-label">Type de véhicule :</label>
-                                                        <select class="form-control" id="controlSelect">
-                                                            <option>Choisir le type de véhicule</option>
+                                                        <select class="form-control" id="type_vehicule">
                                                             <option>Camionnette</option>
                                                             <option>Poids lourd</option>
                                                             <option>SUV</option>
                                                         </select>
                                                     </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                        <button type="submit" id="ajouter" class="btn btn-primary">Valider</button>
+                                                    </div>
                                                 </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                                <button type="button" id="ajouter" class="btn btn-primary">Valider</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <div class="datatable-container" id="tableau_ticket">
 
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th><a href="#" class="datatable-sorter">ID</a></th>
-                                            <th><a href="#" class="datatable-sorter">Technicien</a></th>
-                                            <th><a href="#" class="datatable-sorter">N° Facture</a></th>
-                                            <th><a href="#" class="datatable-sorter">Date ticket</a></th>
-                                            <th><a href="#" class="datatable-sorter">Type de véhicule</a></th>
-                                            <th><a href="#" class="datatable-sorter">Action</a></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr data-index="0">
-                                            <td>25</td>
-                                            <td>Gontrand LACHANCE</td>
-                                            <td>18</td>
-                                            <td>19/04/2023</td>
-                                            <td>Camionnette</td>
-                                            <td>
-                                                <button type="button" class="btn btn-warning">Modifier</button>
-                                                <button type="button" class="btn btn-warning">Supprimer</button>
-                                                <button type="button" class="btn btn-warning">Assigner</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -173,8 +152,7 @@
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
-    <script src="../js/datatables-simple-demo.js"></script>
-    <script src="../js/liste.js"></script>
+    <script src="../js/tickets.js"></script>
 </body>
 
 </html>
