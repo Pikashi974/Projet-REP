@@ -16,8 +16,7 @@
 </head>
 
 <body class="sb-nav-fixed">
-
-    <section class="vh-100 gradient-custom" id="layoutSidenav_content">
+    <section class="gradient-custom" id="layoutSidenav_content">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -26,22 +25,28 @@
                             <div class="mb-md-5 mt-md-4 pb-5">
                                 <img src="https://rep.uplink.re/assets/frontend/images/logo.png" style="width: 25%;">
                                 <h2 class="fw-bold mb-2 text-uppercase" style="padding: 1em;">Je m'identifie</h2>
-                                <form id="identifie" action="dashboard.html">
+                                <form id="identifie">
                                     <div class="form-outline form-white mb-4">
-                                        <input type="email" id="typeEmailX" class="form-control form-control-lg mailform" placeholder="Adresse e-mail" />
+                                        <input type="email" id="typeEmailX"
+                                            class="form-control form-control-lg mailform"
+                                            placeholder="Adresse e-mail" />
                                     </div>
-    
+
                                     <div class="form-outline form-white mb-4">
-                                        <input type="password" id="typePasswordX" class="form-control form-control-lg passform" placeholder="Mot de passe">
+                                        <input type="password" id="typePasswordX"
+                                            class="form-control form-control-lg passform" placeholder="Mot de passe">
                                         </input>
                                     </div>
-    
+                                    <!-- 
                                     <p class="small mb-5 pb-lg-2"><a class="text-black-50" href="#!">Mot de passe
                                             oublié?</a>
+                                    </p> -->
+                                    <p id="error" style="display: none;" class="small mb-5 pb-lg-2">
+                                        <a class="text-black-50">Erreur dans l'adresse mail/mot de passe</a>
                                     </p>
-    
-                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Je me connecte</button>
                                 </form>
+                                <button onclick="connexion()" class="btn btn-outline-light btn-lg px-5" id="button_connexion">Je me
+                                    connecte</button>
                                 <!-- <form action="create.html">
                                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Créer directeur</button>
                                 </form> -->
@@ -60,8 +65,6 @@
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
-    <script src="../js/datatables-simple-demo.js"></script>
-    <script src="../js/liste.js"></script>
+    <script src="../js/index.js"></script>
 </body>
-
 </html>

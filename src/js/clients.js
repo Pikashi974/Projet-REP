@@ -2,47 +2,33 @@ const { remote } = require("electron");
 
 const main = require("../js/main");
 
-const bcryptjs = require('bcryptjs');
-
-const saltRounds = 10;
 
 //Récupérer les données du formulaire
 
-const formulaire = document.querySelector("#formEmploye");
+const formulaire = document.querySelector("#formClient");
 const email = document.querySelector("#email");
-const password = document.querySelector("#password");
 const telephone = document.querySelector("#telephone");
 const nom = document.querySelector("#nom");
 const prenom = document.querySelector("#prenom");
-const statut = document.querySelector("#statut");
-const technicien = document.querySelector("#technicien");
 const mode = document.querySelector("#staticBackdropLabel");
 
 formulaire.addEventListener("submit", async (e) => {
     try {
         e.preventDefault();
-        //initialiser les valeurs pour la table employe
-        const employe = {
+        //initialiser les valeurs pour la table client
+        const client = {
             nom: nom.value,
             prenom: prenom.value,
             email: email.value,
-            technicien: 0,
             telephone: telephone.value,
-            statut: statut.value,
         };
-        if (password.value != "") {
-            employe.pass = bcryptjs.hashSync(password.value, saltRounds);
-        }
-        if (technicien.value == "Oui") {
-            employe.technicien = 1
-        }
         //Demande de promesse vers main
-        console.log(employe);
-        if (mode.innerHTML == "Modifier un employé") {
-            const ajoutFormulaire = await main.modifier(employe, "employe", "id="+mode.value);
+        console.log(client);
+        if (mode.innerHTML == "Modifier un client") {
+            const ajoutFormulaire = await main.modifier(client, "client", "id="+mode.value);
         }
         else {
-            const ajoutFormulaire = await main.ajout_valeur("employe", employe);
+            const ajoutFormulaire = await main.ajout_valeur("client", client);
         }
         location.reload();
     }
@@ -51,13 +37,12 @@ formulaire.addEventListener("submit", async (e) => {
     }
 });
 
-//Liste employes
+//Liste clients
 
-const List = document.querySelector("#tableau_employe");
-//const ListType = document.querySelector("#ListeAllType");
+const List = document.querySelector("#tableau_client");
 
 const getData = async () => {
-    listeData = await main.liste_employes();
+    listeData = await main.liste_clients();
     renderList(listeData);
 }
 
@@ -71,20 +56,13 @@ function renderValues(data, html) {
     body_table = document.querySelector(html)
     body_table.innerHTML = "";
     data.forEach((element) => {
-        if (element.technicien == 0) {
-            element.technicien = "Non"
-        } else {
-            element.technicien = "Oui"
-        }
         body_table.innerHTML += `
         <tr data-index="${element.id}">
             <td>${element.id}</td>
             <td>${element.nom}</td>
             <td>${element.prenom}</td>
             <td>${element.email}</td>
-            <td>${element.technicien}</td>
             <td>${element.telephone}</td>
-            <td>${element.statut}</td>
             <td>
                 <button type="button" class="btn btn-warning">Contacter</button>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
@@ -107,50 +85,38 @@ function renderList(data) {
                 <th><a href="#" class="datatable-sorter">Nom</a></th>
                 <th><a href="#" class="datatable-sorter">Prénom</a></th>
                 <th><a href="#" class="datatable-sorter">Adresse mail</a></th>
-                <th><a href="#" class="datatable-sorter">Technicien</a></th>
                 <th><a href="#" class="datatable-sorter">N° Téléphone</a></th>
-                <th><a href="#" class="datatable-sorter">Statut</a></th>
                 <th><a href="#" class="datatable-sorter">Action</a></th>
             </tr>
         </thead>
-        <tbody id="liste_employes">
+        <tbody id="liste_clients">
         </tbody>
     </table>`;
-    renderValues(data, "#liste_employes");
+    renderValues(data, "#liste_clients");
 }
 function ajouter_element() {
     mode.innerText = 'Ajouter un employé';;
     nom.value = "";
     prenom.value = "";
-    password.value = "";
     email.value = "";
     telephone.value = "";
-    statut.value = "";
-
 }
 async function modifier_element(id) {
     mode.innerText = 'Modifier un employé';
     mode.value = id;
-    employe = await main.getbyId(id, "employe");
-    nom.value = employe.nom;
-    prenom.value = employe.prenom;
-    email.value = employe.email;
-    telephone.value = employe.telephone;
-    statut.value = employe.statut;
-    if (employe.technicien == 1) {
-        technicien.value = "Oui";
-    }
-    else {
-        technicien.value = "Non";
-    }
+    client = await main.getbyId(id, "client");
+    nom.value = client.nom;
+    prenom.value = client.prenom;
+    email.value = client.email;
+    telephone.value = client.telephone;
 }
 async function supprimer_element(id) {
     supprimer = document.querySelector("#supprimer");
-    employe = await main.getbyId(id, "employe");
+    client = await main.getbyId(id, "client");
     label = document.querySelector("#suppressionLabel")
-    label.innerHTML = "Supprimer l'employé " + employe.nom + " " + employe.prenom;
+    label.innerHTML = "Supprimer le client " + client.nom + " " + client.prenom;
     supprimer.onclick = async function () {
-        const ajoutFormulaire = await main.supprimer(id, "employe");
+        const ajoutFormulaire = await main.supprimer(id, "client");
         location.reload();
     }
 }

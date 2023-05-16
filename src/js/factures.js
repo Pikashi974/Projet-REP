@@ -13,6 +13,12 @@ const telephone = document.querySelector("#telephone");
 const technicien = document.querySelector("#technicien");
 const list_client = document.querySelector("#list_client");
 const montant = document.querySelector("#montant");
+const type_vehicule = document.querySelector("#type_vehicule");
+const statut = document.querySelector("#statut");
+const infos = document.querySelector("#infos");
+const new_client = document.querySelector("#client_new");
+const old_client = document.querySelector("#client_known");
+const mode = document.querySelector("#staticBackdropLabel");
 
 
 
@@ -40,28 +46,58 @@ formulaire.addEventListener("submit", async (e) => {
             prenom: String,
             email: String,
             telephone: String,
-        }
-        if (client.value == "new") {
-            client_data.nom = nom.value;
-            client_data.prenom = prenom.value;
-            client_data.email = email.value;
-            client_data.telephone = telephone.value;
-            const ajoutClient = await main.ajout_valeur("client",client_data);
-            var id_client = await main.getIDClient(client_data.nom, client_data.prenom, client_data.email, client_data.telephone);
-            client_data.id = id_client[0].id;
-        } else {
-            client_data.id =  list_client.value
-        }
-        //initialiser les valeurs pour la table facture
-        const facture = {
-            id_client: client_data.id,
-            id_technicien: technicien.value,
-            somme: montant.value,
-            statut: "En cours"
         };
-        //Demande de promesse vers main
-        // console.log(facture);
-        const ajoutFormulaire = await main.ajout_valeur("facture",facture);
+        const facture = {
+            id_client: Number,
+            id_technicien: Number,
+            somme: Number,
+            statut: String,
+            description: String
+        };
+        const ticket = {
+            id_technicien: Number,
+            id_facture: Number,
+            type_vehicule: String,
+            statut: String,
+        }
+        if (mode.innerHTML == "Modifier une facture") {
+            facture.id_client = list_client.value;
+            facture.id_technicien = ticket.id_technicien = technicien.value;
+            facture.somme = montant.value;
+            facture.statut = ticket.statut = statut.value;
+            facture.description = infos.value;
+            ticket.id_facture = mode.value;
+            ticket.type_vehicule = type_vehicule.value;
+            const ajoutFormulaire = await main.modifier(facture, "facture", "id="+mode.value);
+            const ticketChange = await main.modifier(ticket, "ticket", "id_facture="+mode.value);
+        }
+        else{
+            if (client.value == "new") {
+                client_data.nom = nom.value;
+                client_data.prenom = prenom.value;
+                client_data.email = email.value;
+                client_data.telephone = telephone.value;
+                const ajoutClient = await main.ajout_valeur("client", client_data);
+                var id_client = await main.getIDClient(client_data.nom, client_data.prenom, client_data.email, client_data.telephone);
+                client_data.id = id_client[0].id;
+            } else {
+                client_data.id = list_client.value
+            }
+            //initialiser les valeurs pour la table facture
+            facture.id_client = client_data.id,
+            facture.id_technicien = ticket.id_technicien = technicien.value;
+            facture.somme = montant.value;
+            facture.statut = ticket.statut = statut.value;
+            facture.description = infos.value;
+            ticket.type_vehicule = type_vehicule.value;
+            //Demande de promesse vers main
+            // console.log(facture);
+            const ajoutFormulaire = await main.ajout_valeur("facture", facture)
+            id_facture= await main.getMaxID("facture");
+            ticket.id_facture = id_facture.id;
+            console.log(id_facture.id);
+            const ticketChange = await main.ajout_valeur("ticket", ticket);
+        }
         // console.log(ajoutFormulaire);
         // await main.employe_occupe(facture.id_technicien);
         location.reload();
@@ -89,7 +125,7 @@ function renderValues(data, html) {
         // On convertit la date en valeur lisible pour le tableau
         date = new Date(element.date).toLocaleDateString() + " à " + new Date(element.date).toLocaleTimeString();
         body_table.innerHTML += `
-        <tr data-index="${data.length - element.id}">
+        <tr data-index="${element.id}">
             <td>${element.id}</td>
             <td>${client_data.prenom + " " + client_data.nom}</td>
             <td>${technicien_data.prenom + " " + technicien_data.nom}</td>
@@ -97,8 +133,10 @@ function renderValues(data, html) {
             <td>${element.somme + " €"}</td>
             <td>${element.statut}</td>
             <td>
-                <button type="button" class="btn btn-warning">Modifier</button>
-                <button type="button" class="btn btn-warning">Supprimer</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop" onclick="modifier_element(${element.id})" >Modifier</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                data-bs-target="#suppression" onclick="supprimer_element(${element.id})">Supprimer</button>
             </td>
         </tr>`
     });
@@ -131,14 +169,44 @@ function add_options(data, html) {
     data.forEach((element) => {
         elem = document.createElement("option");
         elem.value = element.id;
-        elem.text = element.prenom + " " + element.nom  ;
+        elem.text = element.prenom + " " + element.nom;
         html.add(elem)
     })
 }
+function ajouter_element() {
+    mode.innerText = 'Ajouter une facture';
+    client.value = "new";
+    new_client.style['display'] = "block"
+    old_client.style['display'] = "none";
+    montant.value = "";
+    infos.value = "";
+}
+async function modifier_element(id) {
+    client.value = "known";
+    new_client.style['display'] = "none"
+    old_client.style['display'] = "block"
+    mode.innerText = 'Modifier une facture';
+    mode.value = id;
+    facture = await main.getbyId(id, "facture");
+    ticket = await main.getTicketfromParam("id_facture="+id);
+    list_client.value = facture.id_client;
+    technicien.value = facture.id_technicien;
+    montant.value = facture.somme;
+    infos.value = facture.description;
+    statut.value = facture.statut;
+    type_vehicule.value = ticket.type_vehicule;
+}
+async function supprimer_element(id) {
+    supprimer = document.querySelector("#supprimer");
+    label = document.querySelector("#suppressionLabel")
+    label.innerHTML = "Supprimer la facture " + id ;
+    supprimer.onclick = async function () {
+        const ajoutFormulaire = await main.supprimer(id, "facture");
+        location.reload();
+    }
+}
 client.addEventListener('change', function () {
     var sel = document.querySelector("select").value;
-    var new_client = document.querySelector("#client_new");
-    var old_client = document.querySelector("#client_known");
     if (sel == 'new') {
         new_client.style['display'] = "block"
         old_client.style['display'] = "none"

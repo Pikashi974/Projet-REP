@@ -10,7 +10,8 @@ const password = document.querySelector("#password");
 const telephone = document.querySelector("#telephone");
 const nom = document.querySelector("#nom");
 const prenom = document.querySelector("#prenom");
-const statut = document.querySelector("#controlSelect")
+const statut = document.querySelector("#controlSelect");
+const mode = document.querySelector("#staticBackdropLabel");
 
 
 
@@ -19,19 +20,25 @@ formulaire.addEventListener("submit", async (e) => {
     try {
         e.preventDefault();
         //initialiser les valeurs pour la table technicien
-        const technicien = {
+        const employe = {
             nom: nom.value,
             prenom: prenom.value,
-            pass: password.value,
             email: email.value,
             technicien: 1,
             telephone: telephone.value,
             statut: statut.value,
         };
+        if (password.value != "") {
+            employe.pass = password.value;
+        }
         //Demande de promesse vers main
-        console.log(technicien);
-        const ajoutFormulaire = await main.ajout_valeur("employe",technicien);
-        console.log(ajoutFormulaire);
+        console.log(employe);
+        if (mode.innerHTML == "Modifier un technicien") {
+            const ajoutFormulaire = await main.modifier(employe, "employe","id="+mode.value);
+        }
+        else{
+            const ajoutFormulaire = await main.ajout_valeur("employe", employe);
+        }
         location.reload();
     }
     catch (error) {
@@ -59,7 +66,7 @@ function renderValues(data, html) {
     body_table.innerHTML = "";
     data.forEach((element) => {
         body_table.innerHTML += `
-        <tr data-index="${data.length - element.id}">
+        <tr data-index="${element.id}">
             <td>${element.id}</td>
             <td>${element.nom}</td>
             <td>${element.prenom}</td>
@@ -69,7 +76,10 @@ function renderValues(data, html) {
             <td>
                 <button type="button" class="btn btn-warning">Contacter</button>
                 <button type="button" class="btn btn-warning">Assigner</button>
-                <button type="button" class="btn btn-warning">Supprimer</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop" onclick="modifier_element(${element.id})">Modifier</button>
+                <button type="button" class="btn btn-warning"  data-bs-toggle="modal"
+                data-bs-target="#suppression" onclick="supprimer_element(${element.id})">Supprimer</button>
             </td>
         </tr>`
     });
@@ -95,4 +105,40 @@ function renderList(data) {
         </tbody>
     </table>`;
     renderValues(data, "#liste_techniciens");
+}
+function ajouter_element() {
+    mode.innerText = 'Ajouter un technicien';;
+    nom.value  = "";
+    prenom.value  = "";
+    password.value  = "";
+    email.value  = "";
+    telephone.value  = "";
+    statut.value  = "";
+    
+}
+async function modifier_element(id) {
+    mode.innerText = 'Modifier un technicien';
+    mode.value = id;
+    employe = await main.getbyId(id, "employe");
+    nom.value = employe.nom;
+    prenom.value = employe.prenom;
+    email.value = employe.email;
+    telephone.value = employe.telephone;
+    statut.value = employe.statut;
+    if (employe.technicien == 1) {
+        technicien.value = "Oui"; 
+    }
+    else {
+        technicien.value = "Non"; 
+    }
+}
+async function supprimer_element(id) {
+    supprimer = document.querySelector("#supprimer");
+    technicien = await main.getbyId(id, "employe");
+    label = document.querySelector("#suppressionLabel")
+    label.innerHTML = "Supprimer le technicien " + technicien.nom + " " + technicien.prenom ;
+    supprimer.onclick = async function () {
+        const ajoutFormulaire = await main.supprimer(id, "employe");
+        location.reload();
+    }
 }

@@ -1,9 +1,10 @@
-const { BrowserWindow, shell } = require("electron");
-const { getConnection } = require("./database")
-//const bcryptjs = require('bcryptjs');
+const { BrowserWindow, shell, session } = require("electron");
+const { getConnection } = require("./database");
+// const DataTable = require('datatables.net-dt');
+// const datatables = require('datatables.net-responsive-dt');
 
+var myGlobalVars = {nom: "",prenom: ""}
 let window;
-
 
 const liste = async (database) => {
     const connect = await getConnection();
@@ -59,13 +60,10 @@ const ajout_valeur = async (database, values) => {
     const connect = await getConnection();
     const result = await connect.query("INSERT INTO " + database + " SET ?", values);
 }
-const update_employe = async (id, values) => {
-    const connect = await getConnection();
-    const result = await connect.query("UPDATE employe SET ? WHERE id = ?", values, id);
-}
 const employe_occupe = async (id) => {
     const connect = await getConnection();
     const result = await connect.query("UPDATE employe SET statut='Occupé' WHERE (id = ?)", id);
+    return result;
 }
 const getbyId = async (id, database) => {
     const connect = await getConnection();
@@ -81,32 +79,55 @@ function getbyIdfromList(liste, value) {
     });
     return text;
 }
-const modifier = async (id, values, database) => {
+async function getTicketfromParam(parameters) {
     const connect = await getConnection();
-    const result = await connect.query("UPDATE " + database + " SET ? WHERE id=?", [values, id,]);
+    const result = await connect.query("SELECT * FROM ticket WHERE "+parameters);
+    return (result[0]);
+}
+async function getMaxID(database) {
+    const connect = await getConnection();
+    const result = await connect.query("SELECT MAX(id) as id  FROM "+ database);
+    return result[0];
+}
+const modifier = async (values, database, parameters) => {
+    const connect = await getConnection();
+    const result = await connect.query("UPDATE " + database + " SET ? WHERE "+ parameters, values);
     return (result);
 }
-
 const supprimer = async (id, database) => {
     const connect = await getConnection();
     const result = await connect.query("DELETE FROM " + database + " WHERE id=?",id);
     return (result);
 }
-
 const mailto = async (text) => {
     shell.openExternal("mailto:" + text)
 }
-
-const getIdentification = async (mail, password) => {
+const getIdentification = async (mail, password, error) => {
     const connect = await getConnection();
-    const result = await connect.query("SELECT * FROM directeur WHERE mail=?", mail);
-    return result;
+    const result = await connect.query("SELECT * FROM directeur WHERE email=?",mail);
+    result.forEach(element => {
+        bcryptjs.compare(password, element.pass, (err, data) => {
+            //if both match than you can do anything
+            if (data) {
+                myGlobalVars.nom = element.nom;
+                myGlobalVars.prenom = element.prenom;
+                document.location.href = "dashboard.html"
+            }
+            else {
+                error.style['display'] = "block"
+            }
+        } )
+    });
+}
+const getNomPrenom = async () => {
+    document.querySelector("#username").innerHTML = myGlobalVars.nom + " " + myGlobalVars.prenom
 }
 const getIDClient = async (nom, prenom, email, telephone) => {
     const connect = await getConnection();
     const result = await connect.query("SELECT id FROM client WHERE nom = ? AND prenom = ? AND email = ? AND telephone = ?", [nom, prenom, email, telephone]);
     return result;
 }
+
 function NewWindow() {
     window = new BrowserWindow({
         webPreferences: {
@@ -114,8 +135,12 @@ function NewWindow() {
             contextIsolation: false,
         }
     });
-
     window.loadFile("./src/ui/index.html");
+
+    let mainSession = window.webContents.session;
+    mainSession.cookies.get({}, (error, cookies) => {
+        console.log(cookies)
+    })
 }
 
 function searchList() {
@@ -146,7 +171,16 @@ function searchList() {
         }
     }
 }
-
+function pageNumbers(count, current) {
+    var shownPages = 3;
+    var result = [];
+    if (current > count - shownPages) {
+        result.push(count - 2, count - 1, count);
+    } else {
+        result.push(current, current + 1, current + 2, '...', count);
+    }
+    return result;
+}
 module.exports = {
     NewWindow,
     liste_techniciens,
@@ -159,12 +193,16 @@ module.exports = {
     liste_clients,
     liste_tickets,
     ajout_valeur,
-    update_employe,
     employe_occupe,
     supprimer,
+    getbyId,
     getbyIdfromList,
+    getTicketfromParam,
+    getMaxID,
     modifier,
     getIdentification,
     getIDClient,
     searchList,
+    getNomPrenom,
+    pageNumbers
 }

@@ -51,7 +51,10 @@
                             Employés
                         </a><a class="nav-link" href="techniciens.html">
                             Techniciens
+                        </a><a class="nav-link" href="clients.html">
+                            Clients
                         </a>
+
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -61,7 +64,7 @@
                             <img id="user-image" src="assets/img/Image placeholder utilisateur générique.jfif">
                         </div>
                         <div id="footer-user-text" class="small">
-                            <a>Utilisateur 1</a>
+                            <a id="username">Utilisateur 1</a>
                             <a id="logout" href="index.html">
                                 <i class="fa fa-power-off"></i>
                                 <span>Se déconnecter</span>
@@ -83,7 +86,7 @@
 
                                 <div style=" display: grid; grid-template-columns: auto auto; align-items: center;">
                                     <button id="new" type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop"><i class="fa fa-plus"></i>
+                                        data-bs-target="#staticBackdrop" onclick="ajouter_element()"><i class="fa fa-plus"></i>
                                         Nouvelle facture
                                     </button>
                                     <input onkeyup="main.searchList()" class="datatable-input" placeholder="Search..."
@@ -148,6 +151,26 @@
                                                         <label for="montant" class="col-form-label">Montant :</label>
                                                         <input type="text" class="form-control" id="montant">
                                                     </div>
+                                                    <div class="form-group">
+                                                        <label for="type" class="col-form-label">Type de véhicule
+                                                            :</label>
+                                                        <select class="form-control" id="type_vehicule">
+                                                            <option>Camionnette</option>
+                                                            <option>Poids lourd</option>
+                                                            <option>SUV</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="statut" class="col-form-label">Statut :</label>
+                                                        <select class="form-control" id="statut">
+                                                            <option value="En cours">En cours</option>
+                                                            <option value="Réglé">Réglé</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group" style="display: grid;">
+                                                        <label for="infos">Informations: </label>
+                                                        <textarea id="infos" rows="5" cols="33" placeholder="Informations supplémentaires"></textarea>
+                                                    </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Fermer</button>
@@ -162,6 +185,28 @@
                                 </div>
                                 <div class="datatable-container" id="tableau_facture">
 
+                                </div>
+                                <div id="footer-page">
+                                    
+                                </div>
+                                <div class="modal fade" id="suppression" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div style="color: black;" class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="suppressionLabel">Supprimer le ticket</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Non</button>
+                                                <button type="submit" id="supprimer"
+                                                    class="btn btn-primary">Oui</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

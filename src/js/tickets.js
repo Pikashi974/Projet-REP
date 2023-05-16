@@ -8,6 +8,7 @@ const formulaire = document.querySelector("#formTicket");
 const technicien = document.querySelector("#technicien");
 const facture = document.querySelector("#facture");
 const type_vehicule = document.querySelector("#type_vehicule");
+const mode = document.querySelector("#staticBackdropLabel");
 
 //Liste tickets
 
@@ -29,15 +30,28 @@ formulaire.addEventListener("submit", async (e) => {
         e.preventDefault();
         //initialiser les valeurs pour la table facture
         const ticket = {
-            id_technicien: technicien.value,
-            id_facture: facture.value,
-            type_vehicule: type_vehicule.value,
-            statut: "En cours",
+            id_technicien: Number,
+            id_facture: Number,
+            type_vehicule: String,
+            statut: String,
+        }
+        ticket.id_technicien = technicien.value;
+        ticket.id_facture = facture.value;
+        ticket.type_vehicule = type_vehicule.value;
+        ticket.statut = statut.value;
+        facture_lie = {
+            statut: ticket.statut
+        }
+        if (mode.innerHTML == "Modifier un ticket") {
+            const ajoutFormulaire = await main.modifier(ticket, "ticket", "id=" + mode.value);
+            const changeStatut = await main.modifier(facture_lie, "facture", "id=" + ticket.id_facture);
+        }
+        else {
+            const ajoutFormulaire = await main.ajout_valeur("ticket", ticket);
+            const changeStatut = await main.modifier(facture_lie, "facture", "id=" + ticket.id_facture);
         }
         //Demande de promesse vers main
         console.log(ticket);
-        const ajoutFormulaire = await main.ajout_valeur("ticket", ticket);
-        console.log(ajoutFormulaire);
         // await main.employe_occupe(facture.id_technicien);
         location.reload();
     }
@@ -64,20 +78,22 @@ function renderValues(data, html) {
         // On convertit la date en valeur lisible pour le tableau
         date = new Date(element.date_creation).toLocaleDateString() + " à " + new Date(element.date_creation).toLocaleTimeString();
         body_table.innerHTML += `
-        <tr data-index="${data.length - element.id}">
+        <tr data-index="${element.id}">
             <td>${element.id}</td>
             <td>${technicien_data.prenom + " " + technicien_data.nom}</td>
             <td>${element.id_facture}</td>
             <td>${date}</td>
             <td>${element.type_vehicule}</td>
+            <td>${element.statut}</td>
             <td>
-                <button type="button" class="btn btn-warning">Modifier</button>
-                <button type="button" class="btn btn-warning">Supprimer</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop" onclick="modifier_element(${element.id})">Modifier</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                data-bs-target="#suppression" onclick="supprimer_element(${element.id})">Supprimer</button>
                 <button type="button" class="btn btn-warning">Assigner</button>
             </td>
         </tr>`
     });
-
 }
 
 function renderList(data) {
@@ -101,7 +117,6 @@ function renderList(data) {
     renderValues(data, "#liste_tickets");
 }
 function add_options(data, html) {
-    html.innerHTML = "";
     data.forEach((element) => {
         elem = document.createElement("option");
         elem.value = element.id;
@@ -109,27 +124,37 @@ function add_options(data, html) {
         html.add(elem)
     })
 }
-['change', 'load'].forEach(function (e) {
-    technicien.addEventListener(e, async function () {
-        liste_factures_technicien = await main.liste_factures_technicien(technicien.value);
-        facture.innerHTML = "";
-        liste_factures_technicien.forEach((element) => {
-            elem = document.createElement("option");
-            elem.value = element.id;
-            elem.text = element.id;
-            facture.add(elem)
-        })
-    });
-});
-// technicien.addEventListener('change', function () {
-//     var sel = document.querySelector("select").value;
-//     var new_client = document.querySelector("#client_new");
-//     var old_client = document.querySelector("#client_known");
-//     if (sel == 'new') {
-//         new_client.style['display'] = "block"
-//         old_client.style['display'] = "none"
-//     } else if (sel == 'known') {
-//         new_client.style['display'] = "none"
-//         old_client.style['display'] = "block"
-//     }
-// }); 
+function ajouter_element() {
+    mode.innerText = 'Ajouter un ticket';
+    options_techniciens();
+}
+async function modifier_element(id) {
+    mode.innerText = 'Modifier un ticket';
+    mode.value = id;
+    ticket = await main.getbyId(id, "ticket");
+    facture.value = ticket.id_facture;
+    technicien.value = ticket.id_technicien;
+    type_vehicule.value = ticket.type_vehicule;
+    options_techniciens();
+}
+async function supprimer_element(id) {
+    supprimer = document.querySelector("#supprimer");
+    label = document.querySelector("#suppressionLabel")
+    label.innerHTML = "Supprimer le ticket " + id;
+    supprimer.onclick = async function () {
+        const ajoutFormulaire = await main.supprimer(id, "ticket");
+        location.reload();
+    }
+}
+async function options_techniciens() {
+    liste_factures_technicien = await main.liste_factures_technicien(technicien.value);
+    console.log(technicien.value);
+    console.log(liste_factures_technicien);
+    facture.innerHTML = "";
+    liste_factures_technicien.forEach((element) => {
+        elem = document.createElement("option");
+        elem.value = element.id;
+        elem.text = element.id;
+        facture.add(elem);
+    })
+}

@@ -1,11 +1,3 @@
-.sb-sidenav-menu,
-.sb-nav-fixed .sb-topnav,
-.sb-sidenav-footer,
-a.navbar-brand.ps-3,
-#login {
-    background-color: #F9B01D;
-}
-
 .ps-3 {
     padding: 10% !important;
 }
@@ -15,18 +7,6 @@ button#sidebarToggle,
     color: #000000;
 }
 
-#layoutSidenav_content {
-    /*background:url(https://rep.uplink.re/assets/frontend/images/background-motif.png) #000 50% repeat!important */
-    background-image: url(https://rep.uplink.re/assets/frontend/images/background-motif.png) !important;
-    background-position-x: 50% !important;
-    background-position-y: center !important;
-    background-size: 2% !important;
-    background-attachment: initial !important;
-    background-origin: initial !important;
-    background-clip: initial !important;
-    background-color: rgb(0, 0, 0) !important;
-
-}
 
 @media (min-width: 576px) {
     .sb-nav-fixed .sb-topnav {
@@ -46,12 +26,12 @@ button#sidebarToggle,
     }
 }
 
-/* @media (min-width: 576px) {
-    button#sidebarToggle {
-        display: block;
-        color:#000000;
+
+@media (max-width: 576px) {
+    .sb-nav-fixed .sb-topnav {
+        left: 0px;
     }
-} */
+}
 
 .navbar.navbar-inverse .navbar-header .navbar-brand {
     display: block;
@@ -99,12 +79,17 @@ footer {
 #factures,
 #tickets,
 #techniciens,
-#employes {
+#employes,
+#clients,
+.modal-content {
     background: #212529;
     color: white
 }
 
-#datatablesSimple, #database_ticket, #database_facture, #database_technicien {
+#datatablesSimple,
+#database_ticket,
+#database_facture,
+#database_technicien {
     text-align: center;
 }
 
@@ -122,14 +107,6 @@ button.btn.btn-warning {
 #lock {
     position: absolute;
     left: 12%;
-    /* background: url("../assets/img/envelope-solid.svg") no-repeat left;
-}
-
-.passform {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    background: url("../assets/img/lock-solid.svg") no-repeat left; */
 }
 
 #mail {
@@ -140,8 +117,10 @@ button.btn.btn-warning {
 .sb-nav-fixed .sb-topnav,
 .sb-sidenav-footer,
 a.navbar-brand.ps-3,
+#login,
 #new,
-#ajouter {
+#ajouter,
+#supprimer {
     background-color: #F9B01D;
 }
 
@@ -154,7 +133,6 @@ button#sidebarToggle {
 }
 
 #layoutSidenav_content {
-    /*background:url(https://rep.uplink.re/assets/frontend/images/background-motif.png) #000 50% repeat!important */
     background-image: url(https://rep.uplink.re/assets/frontend/images/background-motif.png) !important;
     background-position-x: 50% !important;
     background-position-y: center !important;
@@ -163,6 +141,7 @@ button#sidebarToggle {
     background-origin: initial !important;
     background-clip: initial !important;
     background-color: rgb(0, 0, 0) !important;
+    height: inherit;
 
 }
 
@@ -170,8 +149,20 @@ button#sidebarToggle {
     margin: 2%;
     width: fit-content;
 }
-#search,#search_facture,#search_ticket, #search_technicien {
+
+#search,
+#search_facture,
+#search_ticket,
+#search_technicien {
     width: fit-content;
     height: fit-content;
     justify-self: end;
+}
+
+
+#footer-tab-techniciens,#footer-tab-factures ,#footer-tab-tickets {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    align-content: center;
 }
