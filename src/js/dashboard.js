@@ -3,6 +3,7 @@ const { remote } = require("electron");
 const main = require("../js/main");
 const { constants } = require("original-fs");
 
+
 //Liste techniciens
 
 const liste_techniciens = document.querySelector("#tableau_technicien");
@@ -14,6 +15,12 @@ const modal_footer = document.querySelector("#modal-footer-content");
 const footer_technicien = document.querySelector("#footer-tab-techniciens");
 const footer_factures = document.querySelector("#footer-tab-factures");
 const footer_tickets = document.querySelector("#footer-tab-tickets");
+
+function sendNotification(titre, message) {
+    const text_titre = document.querySelector(titre);
+    const text_message = document.querySelector(message);
+    new Notification(text_titre.value, {body: text_message.value})
+}
 
 const getData = async () => {
     liste_techniciens_all = await main.liste_techniciens();
@@ -43,7 +50,8 @@ function renderTechnicien(data, html) {
             <td>${element.telephone}</td>
             <td>${element.statut}</td>
             <td>
-                <button type="button" class="btn btn-warning">Contacter</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                data-bs-target="#suppression" onclick="contacter(${(element.id)})">Contacter</button>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                 data-bs-target="#suppression" onclick="assignerTicket(${(element.id)})">Assigner</button>
             </td>
@@ -243,22 +251,38 @@ async function resoudreFacture(id) {
     modal_titre.innerHTML = "Facture n° " + id;
     facture = await main.getbyId(id, "facture");
     technicien = await main.getbyId(facture.id_technicien, "employe");
-    client = await main.getbyId(facture.id_client, "client")
+    if (technicien == null) {
+        prenom_technicien = "";
+        nom_technicien = "";
+    }
+    else {
+        prenom_technicien = nullToString(technicien.prenom)
+        nom_technicien = nullToString(technicien.nom)
+    }
+    client = await main.getbyId(facture.id_client, "client");
+    if (client == null) {
+        prenom_client = "";
+        nom_client = "";
+    }
+    else {
+        prenom_client = client.prenom;
+        nom_client = client.nom;
+    }
     date = new Date(facture.date).toLocaleDateString() + " à " + new Date(facture.date).toLocaleTimeString();
     try {
         // On essaie de voir si c'est plusieurs informations qui ont été entrés
         infos = facture.description.replace("\n", "</li><li>");
     } catch (error) {
         // Si ce n'est pas le cas, on vérifie qu'il y'a une information
-        if (facture.description == null) {
+        if (facture == null || (facture!= null && facture.description == null) ) {
             infos = "";
         } else {
             infos = facture.description;
         }
     }
     modal_body.innerHTML = `
-    <p>Client: ${client.prenom} ${client.nom}<p>
-    <p>Technicien: ${technicien.prenom} ${technicien.nom}<p>
+    <p>Client: ${prenom_client} ${nom_client}<p>
+    <p>Technicien: ${prenom_technicien} ${nom_technicien}<p>
     <p>Facturé le ${date} pour un montant de ${facture.somme} €<p>
     <p>Informations</p>
     <ul>
@@ -266,33 +290,57 @@ async function resoudreFacture(id) {
     </ul>
     `
     modal_footer.innerHTML = `
-    <button type="button" class="btn btn-warning">Valider la facture</button>
+    <button type="button" class="btn btn-warning" onclick=validerFacture(${id})>Valider la facture</button>
     <button type="button" class="btn btn-warning">Contacter le client</button>
-    <button type="button" class="btn btn-warning">Annuler la facture</button>
+    <button type="button" class="btn btn-warning" onclick=annulerFacture(${id})>Annuler la facture</button>
     `
 }
 async function resoudreTicket(id) {
     modal_titre.innerHTML = "Ticket n° " + id;
     ticket = await main.getbyId(id, "ticket");
     facture = await main.getbyId(ticket.id_facture, "facture");
+    if (facture == null) {
+        id_client_facture = 0
+        somme_facture = 0;
+    }
+    else {
+        id_client_facture = facture.id_client;
+        somme_facture = facture.somme
+    }
     technicien = await main.getbyId(ticket.id_technicien, "employe");
-    client = await main.getbyId(facture.id_client, "client")
+    client = await main.getbyId(id_client_facture, "client")
     date = new Date(ticket.date_creation).toLocaleDateString() + " à " + new Date(ticket.date_creation).toLocaleTimeString();
     try {
         // On essaie de voir si c'est plusieurs informations qui ont été entrés
         infos = facture.description.replace("\n", "</li><li>");
     } catch (error) {
         // Si ce n'est pas le cas, on vérifie qu'il y'a une information
-        if (facture.description == null) {
+        if (facture == null || (facture!= null && facture.description == null) ) {
             infos = "";
         } else {
             infos = facture.description;
         }
     }
+    if (client == null) {
+        prenom_client = "";
+        nom_client = "";
+    }
+    else {
+        prenom_client = client.prenom;
+        nom_client = client.nom;
+    }
+    if (technicien == null) {
+        prenom_technicien = "";
+        nom_technicien = "";
+    }
+    else {
+        prenom_technicien = nullToString(technicien.prenom)
+        nom_technicien = nullToString(technicien.nom)
+    }
     modal_body.innerHTML = `
-    <p>Client: ${client.prenom} ${client.nom}<p>
-    <p>Technicien: ${technicien.prenom} ${technicien.nom}<p>
-    <p>Facturé le ${date} pour un montant de ${facture.somme} €<p>
+    <p>Client: ${prenom_client} ${nom_client}<p>
+    <p>Technicien: ${prenom_technicien} ${nom_technicien}<p>
+    <p>Facturé le ${date} pour un montant de ${somme_facture} €<p>
     <p>Informations</p>
     <ul>
         <li>${infos}</li>
@@ -301,39 +349,147 @@ async function resoudreTicket(id) {
     modal_footer.innerHTML = `
     <button type="button" class="btn btn-warning" onclick=validerTicket(${id})>Valider le ticket</button>
     <button type="button" class="btn btn-warning">Contacter le client</button>
-    <button type="button" class="btn btn-warning">Annuler le ticket</button>
+    <button type="button" class="btn btn-warning" onclick=annulerTicket(${id})>Annuler le ticket</button>
     `
 }
 async function assignerTicket(id) {
     modal_titre.innerHTML = "Assigner un ticket";
-    technicien = await main.getbyId(id, "employe");
-    //ticket = await main.getbyId(id, "ticket");
+    tickets = await main.getAllTicketsfromParam("id_technicien=0");
+    console.log(tickets);
+    input_tickets = ""
+    tickets.forEach((element) => {
+        console.log(element.id);
+        input_tickets += ` 
+            <input type="checkbox" id="ticket_${element.id}" name="ticket" value="${element.id}">Ticket n° ${element.id}<br>`
+    })
     modal_body.innerHTML = `
-    <form method="post" action="/Tests/Post/">      
+    <form id="tickets_vide">      
         <fieldset>      
-            <legend></legend>      
-            <input type="checkbox" name="favorite_pet" value="Cats">Ticket<br>      
-            <input type="checkbox" name="favorite_pet" value="Dogs">Ticket<br>      
-            <input type="checkbox" name="favorite_pet" value="Birds">Ticket<br>      
+            <legend></legend>` +
+        input_tickets
+        + `  
             <br>
         </fieldset>      
     </form>
     `
     modal_footer.innerHTML = `
-    <button type="button" class="btn btn-warning">Valider l'assignation</button>
+    <button type="button" class="btn btn-warning" onclick=doAssigner(${id})>Valider l'assignation</button>
     
     <button type="button" class="btn btn-warning" data-bs-toggle="modal"
     data-bs-target="#suppression">Annuler l'assignation</button>
     `
 }
-async function validerTicket(id) {
+async function validerFacture(id) {
     facture_value = {
-        statut:"Réglé"
+        statut: "Réglé"
     }
-    const ajoutFormulaire = await main.modifier(facture_value, "facture", "id="+id)
+    const ajoutFormulaire = await main.modifier(facture_value, "facture", "id=" + id)
     id_facture = await main.getMaxID("facture");
-    ticket = await main.getTicketfromParam("id_facture="+id);
-    ticket.statut= facture_value.statut;
-    const ticketChange = await main.modifier(ticket, "ticket", "id="+ticket.id);
+    ticket = await main.getFirstTicketfromParam("id_facture=" + id);
+    ticket.statut = facture_value.statut;
+    const ticketChange = await main.modifier(ticket, "ticket", "id=" + ticket.id);
     location.reload();
+}
+async function annulerFacture(id) {
+    facture_value = {
+        statut: "Annulé"
+    }
+    const ajoutFormulaire = await main.modifier(facture_value, "facture", "id=" + id)
+    id_facture = await main.getMaxID("facture");
+    ticket = await main.getFirstTicketfromParam("id_facture=" + id);
+    ticket.statut = facture_value.statut;
+    const ticketChange = await main.modifier(ticket, "ticket", "id=" + ticket.id);
+    location.reload();
+}
+async function validerTicket(id) {
+    ticket_value = {
+        statut: "Réglé"
+    }
+    const ajoutFormulaire = await main.modifier(ticket_value, "ticket", "id=" + id)
+    // Récupérer l'id de la facture dans le code
+    ticket_modifie = await main.getbyId(id, "ticket");
+    facture_id = ticket_modifie.id_facture;
+    console.log(facture_id);
+    // Récupérer la facture dont l'id est celui dans le ticket
+    facture_ticket = await main.getbyId(facture_id, "facture");
+    facture_ticket.statut = "Réglé";
+    const factureChange = await main.modifier(facture_ticket, "facture", "id=" + ticket.id);
+    location.reload();
+}
+async function annulerTicket(id) {
+    ticket_value = {
+        statut: "Annulé"
+    }
+    const ajoutFormulaire = await main.modifier(ticket_value, "ticket", "id=" + id)
+    // Récupérer l'id de la facture dans le code
+    ticket_modifie = await main.getbyId(id, "ticket");
+    facture_id = ticket_modifie.id_facture;
+    console.log(facture_id);
+    // Récupérer la facture dont l'id est celui dans le ticket
+    facture_ticket = await main.getbyId(facture_id, "facture");
+    facture_ticket.statut = "Annulé";
+    const factureChange = await main.modifier(facture_ticket, "facture", "id=" + ticket.id);
+    location.reload();
+}
+async function doAssigner(id) {
+    checked_tickets = document.querySelectorAll('input[name=ticket]:checked');
+    checked_tickets.forEach(async (element) => {
+        // Comme les id de toutes les checkbox commencent par ticket_, on peut le couper
+        // pour avoir l'id des tickets
+        id_ticket = element.id.slice(7);
+        ticket_element = await main.getbyId(id_ticket, "ticket");
+        ticket_element.id_technicien = id;
+        if (ticket_element.id_facture == 0) {
+            const facture = {
+                id_client: 0,
+                id_technicien: id,
+                somme: 0,
+                statut: "En cours",
+                description: ""
+            };
+            const newFacture = await main.ajout_valeur("facture", facture);
+            newest_facture = await main.liste_factures();
+            console.log(newest_facture);
+            ticket_element.id_facture = newest_facture[0].id;
+            const modifiyFacture = await main.modifier(ticket_element, "ticket", "id=" + ticket_element.id);
+        } else {
+            const modifiyFacture = await main.modifier(facture, "facture", "id=" + ticket_element.id_facture);
+        }
+        location.reload();
+    })
+}
+async function contacter(id) {
+    modal_titre.innerHTML = "Notifier le technicien";
+    input_tickets = `
+    <div class="form-group">
+        <label for="objet" class="col-form-label">Objet :</label>
+        <input type="text" class="form-control" id="objet">
+    </div>
+    <div class="form-group" style="display: grid;">
+        <label for="message">Message: </label>
+        <textarea id="message" rows="5" cols="33" placeholder="Informations supplémentaires"></textarea>
+    </div>
+    `
+    modal_body.innerHTML = `
+    <form id="notification">      
+        <fieldset>      
+            <legend></legend>` +
+        input_tickets
+        + `  
+            <br>
+        </fieldset>      
+    </form>
+    `
+    modal_footer.innerHTML = `
+    <button type="button" class="btn btn-warning" onclick=sendNotification("#objet","#message")>Envoyer</button>
+    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+    data-bs-target="#suppression">Annuler</button>
+    `
+}
+function nullToString(params) {
+    if (params == null) {
+        return ("");
+    } else {
+        return (params);
+    }
 }

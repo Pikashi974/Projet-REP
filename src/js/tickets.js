@@ -48,7 +48,12 @@ formulaire.addEventListener("submit", async (e) => {
         }
         else {
             const ajoutFormulaire = await main.ajout_valeur("ticket", ticket);
-            const changeStatut = await main.modifier(facture_lie, "facture", "id=" + ticket.id_facture);
+            console.log(ticket.id_technicien == 0);
+            if (ticket.id_technicien == 0) {
+                const changeStatut = await main.ajout_valeur(facture_lie);
+            } else {
+                const changeStatut = await main.modifier(facture_lie, "facture", "id=" + ticket.id_facture);
+            }
         }
         //Demande de promesse vers main
         console.log(ticket);
@@ -90,7 +95,6 @@ function renderValues(data, html) {
                 data-bs-target="#staticBackdrop" onclick="modifier_element(${element.id})">Modifier</button>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                 data-bs-target="#suppression" onclick="supprimer_element(${element.id})">Supprimer</button>
-                <button type="button" class="btn btn-warning">Assigner</button>
             </td>
         </tr>`
     });
@@ -147,14 +151,21 @@ async function supprimer_element(id) {
     }
 }
 async function options_techniciens() {
-    liste_factures_technicien = await main.liste_factures_technicien(technicien.value);
+    liste_facture = await main.liste_factures();
     console.log(technicien.value);
-    console.log(liste_factures_technicien);
-    facture.innerHTML = "";
-    liste_factures_technicien.forEach((element) => {
+    facture.innerHTML = `<option value="0">Aucune facture</option>`;
+    if (liste_facture.length == 0) {
         elem = document.createElement("option");
-        elem.value = element.id;
-        elem.text = element.id;
+        elem.value = 0;
+        elem.text = "Aucune facture";
         facture.add(elem);
-    })
+    }
+    else {
+        liste_facture.forEach((element) => {
+            elem = document.createElement("option");
+            elem.value = element.id;
+            elem.text = element.id;
+            facture.add(elem);
+        })
+    }
 }

@@ -17,6 +17,9 @@ const prenom = document.querySelector("#prenom");
 const statut = document.querySelector("#statut");
 const technicien = document.querySelector("#technicien");
 const mode = document.querySelector("#staticBackdropLabel");
+const modal_titre = document.querySelector("#contacterLabel");
+const modal_body = document.querySelector("#modal-body-contact");
+const modal_footer = document.querySelector("#modal-footer-contact");
 
 formulaire.addEventListener("submit", async (e) => {
     try {
@@ -86,7 +89,8 @@ function renderValues(data, html) {
             <td>${element.telephone}</td>
             <td>${element.statut}</td>
             <td>
-                <button type="button" class="btn btn-warning">Contacter</button>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                data-bs-target="#contacter" onclick="contacter(${(element.id)})">Contacter</button>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop" onclick="modifier_element(${element.id})">Modifier</button>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
@@ -153,4 +157,32 @@ async function supprimer_element(id) {
         const ajoutFormulaire = await main.supprimer(id, "employe");
         location.reload();
     }
+}
+async function contacter(id) {
+    modal_titre.innerHTML = "Notifier l'employé";
+    input_tickets = `
+    <div class="form-group">
+        <label for="objet" class="col-form-label">Objet :</label>
+        <input type="text" class="form-control" id="objet">
+    </div>
+    <div class="form-group" style="display: grid;">
+        <label for="message">Message: </label>
+        <textarea id="message" rows="5" cols="33" placeholder="Informations supplémentaires"></textarea>
+    </div>
+    `
+    modal_body.innerHTML = `
+    <form id="notification">      
+        <fieldset>      
+            <legend></legend>` +
+        input_tickets
+        + `  
+            <br>
+        </fieldset>      
+    </form>
+    `
+    modal_footer.innerHTML = `
+    <button type="button" class="btn btn-warning" onclick=sendNotification("#objet","#message")>Envoyer</button>
+    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+    data-bs-target="#suppression">Annuler</button>
+    `
 }

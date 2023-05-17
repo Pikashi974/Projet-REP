@@ -1,7 +1,5 @@
-const { BrowserWindow, shell, session } = require("electron");
+const { BrowserWindow, shell, Notification } = require("electron");
 const { getConnection } = require("./database");
-// const DataTable = require('datatables.net-dt');
-// const datatables = require('datatables.net-responsive-dt');
 
 var myGlobalVars = {nom: "",prenom: ""}
 let window;
@@ -41,11 +39,7 @@ const liste_factures = async () => {
     const result = await connect.query("SELECT * FROM facture ORDER BY id DESC");
     return (result);
 }
-const liste_factures_technicien = async (value) => {
-    const connect = await getConnection();
-    const result = await connect.query("SELECT * FROM facture where id_technicien=? ORDER BY id DESC", value);
-    return (result);
-}
+
 const liste_clients = async () => {
     const connect = await getConnection();
     const result = await connect.query("SELECT * FROM client ORDER BY id DESC");
@@ -79,10 +73,15 @@ function getbyIdfromList(liste, value) {
     });
     return text;
 }
-async function getTicketfromParam(parameters) {
+async function getFirstTicketfromParam(parameters) {
     const connect = await getConnection();
     const result = await connect.query("SELECT * FROM ticket WHERE "+parameters);
     return (result[0]);
+}
+async function getAllTicketsfromParam(parameters) {
+    const connect = await getConnection();
+    const result = await connect.query("SELECT * FROM ticket WHERE "+parameters);
+    return (result);
 }
 async function getMaxID(database) {
     const connect = await getConnection();
@@ -136,11 +135,6 @@ function NewWindow() {
         }
     });
     window.loadFile("./src/ui/index.html");
-
-    let mainSession = window.webContents.session;
-    mainSession.cookies.get({}, (error, cookies) => {
-        console.log(cookies)
-    })
 }
 
 function searchList() {
@@ -189,7 +183,6 @@ module.exports = {
     liste_factures_dispo,
     liste_employes,
     liste_factures,
-    liste_factures_technicien,
     liste_clients,
     liste_tickets,
     ajout_valeur,
@@ -197,12 +190,13 @@ module.exports = {
     supprimer,
     getbyId,
     getbyIdfromList,
-    getTicketfromParam,
+    getFirstTicketfromParam,
+    getAllTicketsfromParam,
     getMaxID,
     modifier,
     getIdentification,
     getIDClient,
     searchList,
     getNomPrenom,
-    pageNumbers
+    pageNumbers,
 }

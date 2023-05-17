@@ -188,7 +188,7 @@ async function modifier_element(id) {
     mode.innerText = 'Modifier une facture';
     mode.value = id;
     facture = await main.getbyId(id, "facture");
-    ticket = await main.getTicketfromParam("id_facture="+id);
+    ticket = await main.getFirstTicketfromParam("id_facture="+id);
     list_client.value = facture.id_client;
     technicien.value = facture.id_technicien;
     montant.value = facture.somme;
