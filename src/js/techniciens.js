@@ -12,12 +12,9 @@ const nom = document.querySelector("#nom");
 const prenom = document.querySelector("#prenom");
 const statut = document.querySelector("#controlSelect");
 const mode = document.querySelector("#staticBackdropLabel");
-const modal_titre = document.querySelector("#assignerLabel");
-const modal_body = document.querySelector("#modal-body-content");
-const modal_footer = document.querySelector("#modal-footer-content");
-const modal_titre_contact = document.querySelector("#contacterLabel");
-const modal_body_contact = document.querySelector("#modal-body-contact");
-const modal_footer_contact = document.querySelector("#modal-footer-contact");
+const modal_titre = document.querySelector("#contacterLabel");
+const modal_body = document.querySelector("#modal-body-contact");
+const modal_footer = document.querySelector("#modal-footer-contact");
 
 function sendNotification(titre, message) {
     const text_titre = document.querySelector(titre);
@@ -90,7 +87,7 @@ function renderValues(data, html) {
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                 data-bs-target="#contacter" onclick="contacter(${(element.id)})">Contacter</button>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                data-bs-target="#assigner" onclick="assignerTicket(${element.id})">Assigner</button>
+                data-bs-target="#contacter" onclick="assignerTicket(${element.id})">Assigner</button>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop" onclick="modifier_element(${element.id})">Modifier</button>
                 <button type="button" class="btn btn-warning"  data-bs-toggle="modal"
@@ -181,7 +178,7 @@ async function assignerTicket(id) {
     <button type="button" class="btn btn-warning" onclick=doAssigner(${id})>Valider l'assignation</button>
     
     <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-    data-bs-target="#suppression">Annuler l'assignation</button>
+    data-bs-target="#contacter">Annuler l'assignation</button>
     `
 }
 async function doAssigner(id) {
@@ -212,7 +209,7 @@ async function doAssigner(id) {
     })
 }
 async function contacter(id) {
-    modal_titre_contact.innerHTML = "Notifier le technicien";
+    modal_titre.innerHTML = "Notifier le technicien";
     input_tickets = `
     <div class="form-group">
         <label for="objet" class="col-form-label">Objet :</label>
@@ -223,7 +220,7 @@ async function contacter(id) {
         <textarea id="message" rows="5" cols="33" placeholder="Informations supplémentaires"></textarea>
     </div>
     `
-    modal_body_contact.innerHTML = `
+    modal_body.innerHTML = `
     <form id="notification">      
         <fieldset>      
             <legend></legend>` +
@@ -233,7 +230,7 @@ async function contacter(id) {
         </fieldset>      
     </form>
     `
-    modal_footer_contact.innerHTML = `
+    modal_footer.innerHTML = `
     <button type="button" class="btn btn-warning" onclick=sendNotification("#objet","#message")>Envoyer</button>
     <button type="button" class="btn btn-warning" data-bs-toggle="modal"
     data-bs-target="#contacter">Annuler</button>
