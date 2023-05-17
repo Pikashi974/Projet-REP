@@ -46,8 +46,12 @@ function renderTechnicien(data, html) {
             <td>${element.id}</td>
             <td>${element.nom}</td>
             <td>${element.prenom}</td>
-            <td>${element.email}</td>
-            <td>${element.telephone}</td>
+            <td>
+                <a href="mailto:${element.email}">${element.email}</a>
+            </td>
+            <td>
+                <a href="tel:${element.telephone}">${element.telephone}</a>
+            </td>
             <td>${element.statut}</td>
             <td>
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
