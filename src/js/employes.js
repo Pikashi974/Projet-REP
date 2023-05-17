@@ -21,6 +21,12 @@ const modal_titre = document.querySelector("#contacterLabel");
 const modal_body = document.querySelector("#modal-body-contact");
 const modal_footer = document.querySelector("#modal-footer-contact");
 
+function sendNotification(titre, message) {
+    const text_titre = document.querySelector(titre);
+    const text_message = document.querySelector(message);
+    new Notification(text_titre.value, {body: text_message.value})
+}
+
 formulaire.addEventListener("submit", async (e) => {
     try {
         e.preventDefault();
