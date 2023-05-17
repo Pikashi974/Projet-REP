@@ -40,18 +40,30 @@ formulaire.addEventListener("submit", async (e) => {
         ticket.type_vehicule = type_vehicule.value;
         ticket.statut = statut.value;
         facture_lie = {
-            statut: ticket.statut
+            id_client: Number, 
+            id_technicien: Number,
+            somme: Number, 
+            statut: ticket.statut,
+            description: String,
         }
         if (mode.innerHTML == "Modifier un ticket") {
             const ajoutFormulaire = await main.modifier(ticket, "ticket", "id=" + mode.value);
             const changeStatut = await main.modifier(facture_lie, "facture", "id=" + ticket.id_facture);
         }
         else {
-            const ajoutFormulaire = await main.ajout_valeur("ticket", ticket);
             console.log(ticket.id_technicien == 0);
-            if (ticket.id_technicien == 0) {
-                const changeStatut = await main.ajout_valeur(facture_lie);
+            if (ticket.id_facture == 0) {
+                facture_lie.id_client = 0;
+                facture_lie.id_technicien = ticket.id_technicien,
+                facture_lie.somme = 0,
+                facture_lie.description = "";
+                const newFacture = await main.ajout_valeur("facture",facture_lie);
+                ticket_id_facture = await main.getMaxID("facture");
+                console.log(ticket_id_facture);
+                ticket.id_facture = ticket_id_facture.id;
+                const ajoutFormulaire = await main.ajout_valeur("ticket", ticket);
             } else {
+                const ajoutFormulaire = await main.ajout_valeur("ticket", ticket);
                 const changeStatut = await main.modifier(facture_lie, "facture", "id=" + ticket.id_facture);
             }
         }

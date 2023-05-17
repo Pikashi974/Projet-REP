@@ -187,24 +187,18 @@ async function doAssigner(id) {
         // Comme les id de toutes les checkbox commencent par ticket_, on peut le couper
         // pour avoir l'id des tickets
         id_ticket = element.id.slice(7);
+        // On récupère le ticket correspondant
         ticket_element = await main.getbyId(id_ticket, "ticket");
+        // On récupère la facture du ticket
+        ticket_id_facture = ticket_element.id_facture;
+        facture_element = await main.getbyId(ticket_id_facture, "facture");
+        // On modifie l'ID du ticket pour prendre celui du technicien
         ticket_element.id_technicien = id;
-        if (ticket_element.id_facture == 0) {
-            const facture = {
-                id_client: 0,
-                id_technicien: id,
-                somme: 0,
-                statut: "En cours",
-                description: ""
-            };
-            const newFacture = await main.ajout_valeur("facture", facture);
-            newest_facture = await main.liste_factures();
-            console.log(newest_facture);
-            ticket_element.id_facture = newest_facture[0].id;
-            const modifiyFacture = await main.modifier(ticket_element, "ticket", "id=" + ticket_element.id);
-        } else {
-            const modifiyFacture = await main.modifier(facture, "facture", "id=" + ticket_element.id_facture);
-        }
+        // On modifie l'ID de la facture pour prendre celui du technicien
+        facture_element.id_technicien = id;
+        // On ajoute les modifications aux tickets et factures
+        const modifiyTicket = await main.modifier(ticket_element, "ticket", "id=" + ticket_element.id);
+        const modifiyFacture = await main.modifier(facture_element, "facture", "id=" + facture_element.id);
         location.reload();
     })
 }

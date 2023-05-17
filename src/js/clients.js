@@ -109,14 +109,14 @@ function renderList(data) {
     renderValues(data, "#liste_clients");
 }
 function ajouter_element() {
-    mode.innerText = 'Ajouter un employé';;
+    mode.innerText = 'Ajouter un client';
     nom.value = "";
     prenom.value = "";
     email.value = "";
     telephone.value = "";
 }
 async function modifier_element(id) {
-    mode.innerText = 'Modifier un employé';
+    mode.innerText = 'Modifier un client';
     mode.value = id;
     client = await main.getbyId(id, "client");
     nom.value = client.nom;
