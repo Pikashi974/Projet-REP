@@ -291,7 +291,7 @@ async function resoudreFacture(id) {
     `
     modal_footer.innerHTML = `
     <button type="button" class="btn btn-warning" onclick=validerFacture(${id})>Valider la facture</button>
-    <button type="button" class="btn btn-warning">Contacter le client</button>
+    
     <button type="button" class="btn btn-warning" onclick=annulerFacture(${id})>Annuler la facture</button>
     `
 }
@@ -348,7 +348,7 @@ async function resoudreTicket(id) {
     `
     modal_footer.innerHTML = `
     <button type="button" class="btn btn-warning" onclick=validerTicket(${id})>Valider le ticket</button>
-    <button type="button" class="btn btn-warning">Contacter le client</button>
+    
     <button type="button" class="btn btn-warning" onclick=annulerTicket(${id})>Annuler le ticket</button>
     `
 }
@@ -483,7 +483,7 @@ async function contacter(id) {
     modal_footer.innerHTML = `
     <button type="button" class="btn btn-warning" onclick=sendNotification("#objet","#message")>Envoyer</button>
     <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-    data-bs-target="#suppression">Annuler</button>
+    data-bs-target="#contacter">Annuler</button>
     `
 }
 function nullToString(params) {

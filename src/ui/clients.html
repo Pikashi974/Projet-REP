@@ -14,7 +14,8 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -22,10 +23,11 @@
         <!-- Navbar Brand-->
 
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-                class="fas fa-bars"></i></button>
-        <!-- Navbar Title-->
-        <div id="Title-padding-left"></div>
+        <div id="Title-padding-left">
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                    class="fas fa-bars"></i></button>
+        </div>
         <div id="Title">
             <h1>
                 <p>Clients</p>
@@ -33,27 +35,6 @@
         </div>
         <div id="Title-padding-right"></div>
     </nav>
-    <div class="modal fade" id="contacter" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false"
-        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div style="color: black;" class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="contacterLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="modal-body-contact">
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div id="modal-footer-contact">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -99,6 +80,27 @@
             </nav>
         </div>
         <div id="layoutSidenav_content">
+            <div class="modal fade" id="contacter" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div style="color: black;" class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="contacterLabel"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="modal-body-contact">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div id="modal-footer-contact">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <main>
                 <div class="container-fluid px-4">
                     <div class="row" style="padding-top:5%">
@@ -107,7 +109,8 @@
 
                                 <div style=" display: grid; grid-template-columns: auto auto; align-items: center;">
                                     <button id="new" type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop" onclick="ajouter_element()"><i class="fa fa-plus"></i>
+                                        data-bs-target="#staticBackdrop" onclick="ajouter_element()"><i
+                                            class="fa fa-plus"></i>
                                         Nouveau client
                                     </button>
                                     <input onkeyup="main.searchList()" class="datatable-input" placeholder="Search..."
@@ -145,8 +148,10 @@
                                                         <input type="text" class="form-control" id="telephone">
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                                        <button type="submit" id="ajouter" class="btn btn-primary">Valider</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Fermer</button>
+                                                        <button type="submit" id="ajouter"
+                                                            class="btn btn-primary">Valider</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -157,12 +162,15 @@
                                 <div class="datatable-container" id="tableau_client">
 
                                 </div>
-                                <div class="modal fade" id="suppression" data-bs-backdrop="static" role="dialog" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal fade" id="suppression" data-bs-backdrop="static" role="dialog"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
                                     <div style="color: black;" class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="suppressionLabel">Supprimer le ticket</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
 
@@ -196,16 +204,20 @@
             </footer>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="assets/demo/chart-area-demo.js"></script>
     <script src="assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
     <script src="../js/datatables-simple-demo.js"></script>
     <script src="../js/clients.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

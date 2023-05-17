@@ -227,6 +227,6 @@ async function contacter(id) {
     modal_footer_contact.innerHTML = `
     <button type="button" class="btn btn-warning" onclick=sendNotification("#objet","#message")>Envoyer</button>
     <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-    data-bs-target="#suppression">Annuler</button>
+    data-bs-target="#contacter">Annuler</button>
     `
 }

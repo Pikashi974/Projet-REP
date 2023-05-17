@@ -127,10 +127,10 @@ a.navbar-brand.ps-3,
 .ps-3 {
     padding: 10% !important;
 }
-
+/* 
 button#sidebarToggle {
     display: none;
-}
+} */
 
 #layoutSidenav_content {
     background-image: url(https://rep.uplink.re/assets/frontend/images/background-motif.png) !important;
