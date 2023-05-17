@@ -103,13 +103,12 @@ const mailto = async (text) => {
 }
 const getIdentification = async (mail, password, error) => {
     const connect = await getConnection();
-    const result = await connect.query("SELECT * FROM directeur WHERE email=?",mail);
+    const result = await connect.query("SELECT pass FROM directeur WHERE email=?",mail);
     result.forEach(element => {
+        console.log(element)
         bcryptjs.compare(password, element.pass, (err, data) => {
             //if both match than you can do anything
             if (data) {
-                myGlobalVars.nom = element.nom;
-                myGlobalVars.prenom = element.prenom;
                 document.location.href = "dashboard.html"
             }
             else {

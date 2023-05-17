@@ -20,8 +20,6 @@ const new_client = document.querySelector("#client_new");
 const old_client = document.querySelector("#client_known");
 const mode = document.querySelector("#staticBackdropLabel");
 
-
-
 //Liste factures
 
 const List = document.querySelector("#tableau_facture");
